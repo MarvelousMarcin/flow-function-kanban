@@ -6,7 +6,7 @@ const Dot = ({ color }: DotType) => {
   return (
     <section
       style={{ backgroundColor: color }}
-      className="w-4 h-4 rounded-full"
+      className="w-3 h-3 rounded-full"
     ></section>
   );
 };

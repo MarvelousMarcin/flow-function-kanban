@@ -23,19 +23,19 @@ const WorkItem = ({
   stage,
 }: WorkItemType) => {
   return (
-    <div className="bg-main w-[19rem]  rounded-3xl  text-white flex flex-col py-4 justify-normal items-center p-1 gap-2">
-      <h1 className="font-bold text-md">Work Item</h1>
-      <article className="flex flex-row gap-4">
-        <div className="min-w-[5rem]">
-          <h2 className="font-bold text-sm">Bloker</h2>
+    <div className="bg-main rounded-3xl w-[90%]  text-white flex flex-col py-4 justify-normal items-center p-1 gap-2">
+      <h1 className="font-bold text-sm">Work Item</h1>
+      <article className="flex flex-row justify-evenly w-full">
+        <div>
+          <h2 className="font-bold text-xs">Bloker</h2>
           <section className="flex flex-row gap-1">
             <Dot color={blocker >= 1 ? "#F59B6F" : "white"} />
             <Dot color={blocker >= 2 ? "#F59B6F" : "white"} />
             <Dot color={blocker >= 3 ? "#F59B6F" : "white"} />
           </section>
         </div>
-        <div className="min-w-[5rem]">
-          <h2 className="font-bold text-sm">Stage</h2>
+        <div>
+          <h2 className="font-bold text-xs">Stage</h2>
           <section className="flex flex-row gap-1">
             <Dot color={stage === 1 ? "#F59B6F" : "white"} />
             <Dot color={stage === 2 ? "#F59B6F" : "white"} />
@@ -43,32 +43,29 @@ const WorkItem = ({
             <Dot color={stage === 4 ? "#F59B6F" : "white"} />
           </section>
         </div>
-        <div className="min-w-[5rem]">
-          <h2 className="font-bold text-sm">Owner</h2>
-          <section
-            style={{ backgroundColor: owner.color }}
-            className="w-15 h-4 rounded-full bg-white text-white text-center font-bold flex justify-center items-center text-sm"
-          >
-            {owner.name}
+        <div>
+          <h2 className="font-bold text-xs">Owner</h2>
+          <section className="flex flex-row gap-1">
+            <Dot color={owner.color} />
           </section>
         </div>
       </article>
-      <article className="flex flex-row gap-4">
-        <div className="min-w-[5rem]">
-          <h2 className="font-bold text-sm">Start</h2>
-          <section className="w-15 h-5 rounded-full bg-white text-black text-center font-bold flex justify-center items-center text-sm">
+      <article className="flex flex-row justify-evenly w-full">
+        <div>
+          <h2 className="font-bold text-xs">Start</h2>
+          <section className="w-11 h-4 rounded-full bg-white text-black text-center font-bold flex justify-center items-center text-sm">
             {start}
           </section>
         </div>
-        <div className="min-w-[5rem]">
-          <h2 className="font-bold text-sm">End</h2>
-          <section className="w-15 h-5 rounded-full bg-white text-black text-center font-bold flex justify-center items-center text-sm">
+        <div>
+          <h2 className="font-bold text-xs">End</h2>
+          <section className="w-11 h-4 rounded-full bg-white text-black text-center font-bold flex justify-center items-center text-sm">
             {end}
           </section>
         </div>
-        <div className="min-w-[5rem]">
-          <h2 className="font-bold text-sm">Lead Time</h2>
-          <section className="w-15 h-5 rounded-full bg-white text-black text-center font-bold flex justify-center items-center text-sm">
+        <div>
+          <h2 className="font-bold text-xs">Lead Time</h2>
+          <section className="w-11 h-4 rounded-full bg-white text-black text-center font-bold flex justify-center items-center text-sm">
             {leadTime}
           </section>
         </div>
