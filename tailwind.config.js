@@ -14,6 +14,7 @@ module.exports = {
       },
       colors: {
         main: "#00A8BA",
+        orang: "#F59B6F",
       },
     },
   },
