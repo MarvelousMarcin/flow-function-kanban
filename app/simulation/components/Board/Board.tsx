@@ -17,7 +17,7 @@ const Board = ({ isYourTable, name }: BoardType) => {
       <section className="flex flex-row w-5/6  justify-evenly">
         {tables[name].columns.map((column) => (
           <Column columnName={column}>
-            <WorkItem owner={{ name: "frank", color: "blue" }} />
+            <div></div>
           </Column>
         ))}
       </section>

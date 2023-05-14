@@ -19,3 +19,24 @@ model User {
 
   name  String?
 }
+
+model WorkItem {
+
+  id    String     @id @default(uuid())
+
+  table String
+
+  blocker Int
+
+  stage Int
+
+  owner String
+
+  start Int
+
+  end Int
+
+  lead_time Int
+
+  game_id String
+}
