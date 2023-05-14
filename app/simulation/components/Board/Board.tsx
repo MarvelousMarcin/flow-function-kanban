@@ -10,7 +10,7 @@ type BoardType = {
 const Board = ({ isYourTable, name }: BoardType) => {
   return (
     <main
-      className={`w-screen flex flex-col justify-center items-center h-screen`}
+      className={`w-full flex flex-col justify-center items-center h-screen`}
     >
       {isYourTable && <p className="text-orang">your table</p>}
       <h1 className="text-3xl font-bold mb-10">{name}</h1>

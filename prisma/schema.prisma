@@ -20,23 +20,31 @@ model User {
   name  String?
 }
 
+model Game {
+
+  id    Int     @id @default(autoincrement())
+
+  code  String  @unique
+
+}
+
 model WorkItem {
 
   id    String     @id @default(uuid())
 
   table String
 
-  blocker Int
+  blocker Int   @default(0)
 
-  stage Int
+  stage Int     @default(0)
 
-  owner String
+  owner String?  
 
-  start Int
+  start Int     @default(0)
 
-  end Int
+  end   Int?       
 
-  lead_time Int
+  lead_time Int?
 
   game_id String
 }
