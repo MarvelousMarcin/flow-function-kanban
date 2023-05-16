@@ -25,19 +25,22 @@ export async function GET() {
 
   const newGame = await prisma.game.create({ data: { code: newGameCode } });
 
+  const workItems = [];
+
   for (let i = 0; i < 4; i++) {
     for (let j = 0; j < 5; j++) {
-      await prisma.workItem.create({
+      const workItem = await prisma.workItem.create({
         data: {
           blocker: 0,
           game_id: newGame.code,
           table: tables[i],
           start: 0,
-          stage: 0,
+          stage: 1,
         },
       });
+      workItems.push(workItem);
     }
   }
 
-  return NextResponse.json({ msg: "Success" }, { status: 200 });
+  return NextResponse.json({ data: workItems }, { status: 200 });
 }

@@ -1,13 +1,18 @@
+"use client";
+
 import Header from "./components/Header";
-import Board from "./components/Board/Board";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+import AllBoards from "./components/Board/AllBoards";
+const queryClient = new QueryClient();
+
 export default function Simulation() {
   return (
     <main>
       <Header />
-      <Board name="Strategic Value" isFirst={true} isYourTable={true} />
-      <Board name="Design" isFirst={false} isYourTable={false} />
-      <Board name="Development" isFirst={false} isYourTable={false} />
-      <Board name="Release" isFirst={false} isYourTable={false} />
+      <QueryClientProvider client={queryClient}>
+        <AllBoards />
+      </QueryClientProvider>
     </main>
   );
 }

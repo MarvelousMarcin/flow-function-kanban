@@ -46,7 +46,7 @@ const WorkItem = ({
         <div>
           <h2 className="font-bold text-xs">Owner</h2>
           <section className="flex flex-row gap-1">
-            <Dot color={owner.color} />
+            <Dot color={owner ? owner.color : "white"} />
           </section>
         </div>
       </article>
