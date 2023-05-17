@@ -7,6 +7,9 @@ const Header = () => {
         </div>
         <section className="flex flex-row gap-11">
           <div className="font-bold">
+            Round: <span className="text-orang">1</span>
+          </div>
+          <div className="font-bold">
             Day: <span className="text-orang">1</span>
           </div>
           <div className="font-bold">

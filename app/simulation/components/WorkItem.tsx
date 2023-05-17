@@ -1,5 +1,6 @@
 "use client";
 
+import axios from "axios";
 import Dot from "./Dot";
 
 type WorkItemType = {
@@ -12,18 +13,32 @@ type WorkItemType = {
   leadTime: number;
   blocker: number;
   stage: number;
+  userMove: { isMove: boolean; card: string | null };
+  id: string;
 };
 
 const WorkItem = ({
+  id,
   start,
   end,
   owner,
   leadTime,
   blocker,
   stage,
+  userMove,
 }: WorkItemType) => {
+  const clickItemHandler = async () => {
+    if (userMove.isMove && userMove.card === "green") {
+      await axios.post("/api/moveWorkItem", { data: { workItemId: id } });
+    }
+  };
+
   return (
-    <div className="bg-main rounded-3xl w-[90%]  text-white flex flex-col py-4 justify-normal items-center p-1 gap-2">
+    <div
+      onClick={clickItemHandler}
+      style={{ cursor: userMove.isMove ? "pointer" : "default" }}
+      className="bg-main rounded-3xl w-[90%] text-white flex flex-col py-4 justify-normal items-center p-1 gap-2"
+    >
       <h1 className="font-bold text-sm">Work Item</h1>
       <article className="flex flex-row justify-evenly w-full">
         <div>
