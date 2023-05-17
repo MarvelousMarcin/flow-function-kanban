@@ -63,7 +63,6 @@ const WorkItem = ({
       className="bg-main rounded-3xl w-[90%] text-white flex flex-col py-4 justify-normal items-center p-1 gap-2"
     >
       <h1 className="font-bold text-sm">Work Item</h1>
-      <p className="text-xs">{id}</p>
       <article className="flex flex-row justify-evenly w-full">
         <div>
           <h2 className="font-bold text-xs">Bloker</h2>
