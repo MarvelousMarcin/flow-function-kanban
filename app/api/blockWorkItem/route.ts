@@ -4,26 +4,23 @@ import { prisma } from "@/prisma/client";
 export async function POST(request: Request) {
   const body = await request.json();
   const workItemId = body.data.workItemId;
-  console.log(workItemId);
 
   const findWorkItem = await prisma.workItem.findUnique({
     where: { id: workItemId },
   });
-
-  if (findWorkItem) {
-    // Check if Item has Blocker
-    if (findWorkItem.blocker > 0) {
-      await prisma.workItem.update({
-        where: { id: workItemId },
-        data: { blocker: findWorkItem.blocker - 1 },
-      });
-      return NextResponse.json({ msg: "Blocker removed" }, { status: 200 });
-    }
-
+  if (findWorkItem && findWorkItem.stage !== 1 && findWorkItem.stage !== 4) {
     await prisma.workItem.update({
       where: { id: workItemId },
-      data: { stage: findWorkItem.stage + 1 },
+      data: { blocker: findWorkItem.blocker + 1 },
     });
+    const moveNewItem = await prisma.workItem.findFirst({
+      where: { stage: 1, table: findWorkItem.table },
+    });
+    if (moveNewItem)
+      await prisma.workItem.update({
+        where: { id: moveNewItem?.id },
+        data: { stage: moveNewItem?.stage + 1 },
+      });
   }
 
   return NextResponse.json({}, { status: 200 });

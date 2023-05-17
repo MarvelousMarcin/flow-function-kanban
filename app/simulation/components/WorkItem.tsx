@@ -2,6 +2,12 @@
 
 import axios from "axios";
 import Dot from "./Dot";
+import { useQueryClient } from "@tanstack/react-query";
+
+type setUserMoveType = {
+  isMove: boolean;
+  card: string;
+};
 
 type WorkItemType = {
   start: number;
@@ -13,8 +19,10 @@ type WorkItemType = {
   leadTime: number;
   blocker: number;
   stage: number;
-  userMove: { isMove: boolean; card: string | null };
+  userMove: { isMove: boolean; card: string };
   id: string;
+  setUserMove: ({ isMove, card }: setUserMoveType) => void;
+  column: { name: string; stage: number };
 };
 
 const WorkItem = ({
@@ -26,10 +34,30 @@ const WorkItem = ({
   blocker,
   stage,
   userMove,
+  setUserMove,
+  column,
 }: WorkItemType) => {
+  const queryClient = useQueryClient();
+
   const clickItemHandler = async () => {
-    if (userMove.isMove && userMove.card === "green") {
+    if (
+      userMove.isMove &&
+      userMove.card === "green" &&
+      column.stage !== 1 &&
+      column.stage !== 4
+    ) {
       await axios.post("/api/moveWorkItem", { data: { workItemId: id } });
+      setUserMove({ isMove: false, card: "" });
+      queryClient.invalidateQueries({ queryKey: ["workItems"] });
+    } else if (
+      userMove.isMove &&
+      userMove.card === "red" &&
+      column.stage !== 1 &&
+      column.stage !== 4
+    ) {
+      await axios.post("/api/blockWorkItem", { data: { workItemId: id } });
+      setUserMove({ isMove: false, card: "" });
+      queryClient.invalidateQueries({ queryKey: ["workItems"] });
     }
   };
 
@@ -40,6 +68,7 @@ const WorkItem = ({
       className="bg-main rounded-3xl w-[90%] text-white flex flex-col py-4 justify-normal items-center p-1 gap-2"
     >
       <h1 className="font-bold text-sm">Work Item</h1>
+      <p className="text-xs">{id}</p>
       <article className="flex flex-row justify-evenly w-full">
         <div>
           <h2 className="font-bold text-xs">Bloker</h2>

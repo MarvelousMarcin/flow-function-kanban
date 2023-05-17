@@ -2,7 +2,7 @@
 import Board from "./Board";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const fetchWorkItem = async () => {
   const workItems = await axios.post("/api/getWorkItems", {
@@ -12,21 +12,25 @@ const fetchWorkItem = async () => {
 };
 
 const AllBoards = () => {
-  const [userMove, setUserMove] = useState({ isMove: false, card: null });
+  const [userMove, setUserMove] = useState({ isMove: false, card: "" });
+
   const user = {
     name: "John",
     color: "#333333",
     table: "Design",
   };
+
   const { isLoading, isError, data, error } = useQuery({
     queryKey: ["workItems"],
     queryFn: fetchWorkItem,
+    refetchOnWindowFocus: false,
   });
 
   if (isLoading) {
     return <div></div>;
   }
   const workItemsData = data?.data;
+
   return (
     <>
       <Board

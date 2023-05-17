@@ -5,6 +5,11 @@ import WorkItem from "../WorkItem";
 import Column from "./Column";
 import { tables } from "@/app/consts/tables";
 
+type setUserMoveType = {
+  isMove: boolean;
+  card: string;
+};
+
 type WorkItem = {
   stage: number;
   id: string;
@@ -26,24 +31,23 @@ type BoardType = {
     color: string;
     table: string;
   };
-  setUserMove: Function;
-  userMove: { isMove: boolean; card: string | null };
+  setUserMove: ({ isMove, card }: setUserMoveType) => void;
+  userMove: { isMove: boolean; card: string };
 };
 
 const Board = ({ name, items, user, setUserMove, userMove }: BoardType) => {
   const isMyBoard = name === user.table;
-
   const handleDrawCard = async () => {
     const whatCard = await axios.post("/api/drawCard", {
       data: { userId: "DQREYO" },
     });
 
-    const color = whatCard.data.card;
+    const card = whatCard.data.card;
 
-    if (color === "green") {
-      setUserMove({ isMove: true, color: "green" });
+    if (card === "green") {
+      setUserMove({ isMove: true, card: "green" });
     } else {
-      setUserMove({ isMove: true, color: "red" });
+      setUserMove({ isMove: true, card: "red" });
     }
   };
 
@@ -54,13 +58,18 @@ const Board = ({ name, items, user, setUserMove, userMove }: BoardType) => {
       {isMyBoard && <p className="text-orang">your table</p>}
       <section className="flex flex-row justify-center items-center mb-10 w-5/6 relative">
         <h1 className="text-3xl font-bold ">{name}</h1>
-        {isMyBoard && (
+        {isMyBoard && !userMove.isMove && (
           <button
             onClick={handleDrawCard}
             className="absolute right-0 bg-orang font-bold p-3 rounded-lg"
           >
             Draw Card
           </button>
+        )}
+        {isMyBoard && userMove.isMove && (
+          <h1 className="absolute right-0  font-bold p-3 rounded-lg">
+            {userMove.card}
+          </h1>
         )}
       </section>
       <section className="flex flex-row w-5/6  justify-evenly">
@@ -74,10 +83,12 @@ const Board = ({ name, items, user, setUserMove, userMove }: BoardType) => {
                     userMove={userMove}
                     start={item.start}
                     end={item.end}
-                    key={item.id}
+                    key={Math.random()}
                     id={item.id}
                     leadTime={item.lead_time}
                     blocker={item.blocker}
+                    setUserMove={setUserMove}
+                    column={column}
                     stage={
                       name === "Strategic Value"
                         ? 1
