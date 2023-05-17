@@ -11,6 +11,11 @@ const fetchWorkItem = async () => {
 };
 
 const AllBoards = () => {
+  const user = {
+    name: "John",
+    color: "#333333",
+    table: "Design",
+  };
   const { isLoading, isError, data, error } = useQuery({
     queryKey: ["workItems"],
     queryFn: fetchWorkItem,
@@ -20,32 +25,31 @@ const AllBoards = () => {
     return <div></div>;
   }
   const workItemsData = data?.data;
-  console.log(workItemsData);
   return (
     <>
       <Board
         name="Strategic Value"
         isFirst={true}
-        isYourTable={true}
         items={workItemsData["Strategic Value"]}
+        user={user}
       />
       <Board
         name="Design"
         isFirst={false}
-        isYourTable={false}
         items={workItemsData["Design"]}
+        user={user}
       />
       <Board
         name="Development"
         isFirst={false}
-        isYourTable={false}
         items={workItemsData["Development"]}
+        user={user}
       />
       <Board
         name="Release"
         isFirst={false}
-        isYourTable={false}
         items={workItemsData["Release"]}
+        user={user}
       />
     </>
   );

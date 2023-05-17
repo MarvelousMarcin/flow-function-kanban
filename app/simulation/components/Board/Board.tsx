@@ -17,20 +17,32 @@ type WorkItem = {
 };
 
 type BoardType = {
-  isYourTable: boolean;
   isFirst: boolean;
   name: "Development" | "Release" | "Strategic Value" | "Design";
   items: WorkItem[];
+  user: {
+    name: string;
+    color: string;
+    table: string;
+  };
 };
 
-const Board = ({ isYourTable, name, items }: BoardType) => {
-  console.log(items);
+const Board = ({ name, items, user }: BoardType) => {
+  const isMyBoard = name === user.table;
+
   return (
     <main
       className={`w-full flex flex-col justify-center items-center h-screen`}
     >
-      {isYourTable && <p className="text-orang">your table</p>}
-      <h1 className="text-3xl font-bold mb-10">{name}</h1>
+      {isMyBoard && <p className="text-orang">your table</p>}
+      <section className="flex flex-row justify-center items-center mb-10 w-5/6 relative">
+        <h1 className="text-3xl font-bold ">{name}</h1>
+        {isMyBoard && (
+          <button className="absolute right-0 bg-orang font-bold p-3 rounded-lg">
+            Draw Card
+          </button>
+        )}
+      </section>
       <section className="flex flex-row w-5/6  justify-evenly">
         {tables[name].columns.map((column) => (
           <>
