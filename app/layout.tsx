@@ -1,11 +1,10 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Flow Function Simulation",
-  description: "Kanba Simulator App",
+  description: "Kanban Simulator App",
 };
 
 export default function RootLayout({

@@ -40,12 +40,7 @@ const WorkItem = ({
   const queryClient = useQueryClient();
 
   const clickItemHandler = async () => {
-    if (
-      userMove.isMove &&
-      userMove.card === "green" &&
-      column.stage !== 1 &&
-      column.stage !== 4
-    ) {
+    if (userMove.isMove && userMove.card === "green" && column.stage !== 4) {
       await axios.post("/api/moveWorkItem", { data: { workItemId: id } });
       setUserMove({ isMove: false, card: "" });
       queryClient.invalidateQueries({ queryKey: ["workItems"] });

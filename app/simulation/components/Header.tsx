@@ -12,6 +12,10 @@ const Header = () => {
           <div className="font-bold">
             Day: <span className="text-orang">1</span>
           </div>
+          <div className="font-bold flex flex-row justify-center items-center gap-4">
+            <h1>Your color:</h1>
+            <div className="w-[20px] h-[20px] rounded-full bg-slate-950"></div>
+          </div>
           <div className="font-bold">
             Players: <span className="text-orang">0/12</span>
           </div>
