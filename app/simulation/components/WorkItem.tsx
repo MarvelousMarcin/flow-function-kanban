@@ -5,6 +5,7 @@ import Dot from "./Dot";
 import { useQueryClient } from "@tanstack/react-query";
 import { useSelector } from "react-redux";
 import { UserSelector } from "./Header";
+import { motion } from "framer-motion";
 
 type setUserMoveType = {
   isMove: boolean;
@@ -66,7 +67,7 @@ const WorkItem = ({
   };
 
   return (
-    <div
+    <motion.div
       onClick={clickItemHandler}
       style={{ cursor: userMove.isMove ? "pointer" : "default" }}
       className="bg-main rounded-3xl w-[90%] text-white flex flex-col py-4 justify-normal items-center p-1 gap-2"
@@ -117,7 +118,7 @@ const WorkItem = ({
           </section>
         </div>
       </article>
-    </div>
+    </motion.div>
   );
 };
 

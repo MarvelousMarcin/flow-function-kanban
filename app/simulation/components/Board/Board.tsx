@@ -4,7 +4,7 @@ import axios from "axios";
 import WorkItem from "../WorkItem";
 import Column from "./Column";
 import { tables } from "@/app/consts/tables";
-
+import { motion } from "framer-motion";
 type setUserMoveType = {
   isMove: boolean;
   card: string;
@@ -65,17 +65,33 @@ const Board = ({ name, items, user, setUserMove, userMove }: BoardType) => {
       <section className="flex flex-row justify-center items-center mb-10 w-5/6 relative">
         <h1 className="text-3xl font-bold ">{name}</h1>
         {isMyBoard && !userMove.isMove && (
-          <button
+          <motion.button
+            whileHover={{ scale: 1.05 }}
             onClick={handleDrawCard}
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
             className="absolute right-0 bg-orang font-bold p-3 rounded-lg"
           >
             Draw Card
-          </button>
+          </motion.button>
         )}
-        {isMyBoard && userMove.isMove && (
-          <h1 className="absolute right-0  font-bold p-3 rounded-lg">
-            {userMove.card}
-          </h1>
+        {isMyBoard && userMove.isMove && userMove.card === "red" && (
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            className="font-bold absolute right-0 p-3 rounded-lg bg-red-600 text-white w-32 text-center text-whit"
+          >
+            Block Item
+          </motion.div>
+        )}
+        {isMyBoard && userMove.isMove && userMove.card === "green" && (
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            className="absolute right-0  font-bold p-3 rounded-lg bg-green-600 text-white w-44 text-center"
+          >
+            Move item
+          </motion.div>
         )}
       </section>
       <section className="flex flex-row w-5/6  justify-evenly">
