@@ -7,12 +7,14 @@ export interface UserSelector {
     color: string;
     table: string;
     gameKey: string;
+    activeDay: number;
   };
 }
 
 const Header = () => {
   const color = useSelector((state: UserSelector) => state.user.color);
   const gameKey = useSelector((state: UserSelector) => state.user.gameKey);
+  const activeDay = useSelector((state: UserSelector) => state.user.activeDay);
 
   return (
     <>
@@ -25,7 +27,7 @@ const Header = () => {
             Round: <span className="text-orang">1</span>
           </div>
           <div className="font-bold">
-            Day: <span className="text-orang">1</span>
+            Day: <span className="text-orang">{activeDay}</span>
           </div>
           <div className="font-bold flex flex-row justify-center items-center gap-4">
             <h1>Your color:</h1>

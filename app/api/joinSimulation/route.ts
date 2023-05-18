@@ -22,11 +22,13 @@ export async function POST(request: Request) {
     where: { gameKey: key, name },
   });
 
+  const activeDay = await prisma.game.findUnique({ where: { code: key } });
+
   function generateRandomNumber(): number {
     return Math.floor(Math.random() * 4);
   }
   if (findUser.length !== 0) {
-    return NextResponse.json(findUser[0], { status: 200 });
+    return NextResponse.json({ ...findUser[0], activeDay }, { status: 200 });
   } else {
     const table = ["Strategic Value", "Development", "Release", "Design"];
     const newUser = await prisma.user.create({
@@ -47,6 +49,6 @@ export async function POST(request: Request) {
       data: { stage: 2, ownerId: newUser.id },
     });
 
-    return NextResponse.json(newUser, { status: 200 });
+    return NextResponse.json({ ...newUser, activeDay }, { status: 200 });
   }
 }

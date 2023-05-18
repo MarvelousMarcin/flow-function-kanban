@@ -49,7 +49,6 @@ const AllBoards = () => {
     return <div></div>;
   }
   const workItemsData = data?.data;
-  console.log(workItemsData);
   return (
     <>
       <div ref={strRef}></div>

@@ -6,6 +6,8 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useSelector } from "react-redux";
 import { UserSelector } from "./Header";
 import { motion } from "framer-motion";
+import { updateActiveDat } from "@/app/slice/userSlice";
+import { useDispatch } from "react-redux";
 
 type setUserMoveType = {
   isMove: boolean;
@@ -44,13 +46,18 @@ const WorkItem = ({
   column,
 }: WorkItemType) => {
   const queryClient = useQueryClient();
+  const dispatch = useDispatch();
   const userId = useSelector((state: UserSelector) => state.user.id);
+  const activeDay = useSelector((state: UserSelector) => state.user.activeDay);
   const clickItemHandler = async () => {
     if (userMove.isMove && userMove.card === "green" && column.stage !== 4) {
-      await axios.post("/api/moveWorkItem", {
+      const result = await axios.post("/api/moveWorkItem", {
         data: { workItemId: id, userId },
       });
       setUserMove({ isMove: false, card: "" });
+      if (result.data.nextDay) {
+        dispatch(updateActiveDat({ activeDay: activeDay + 1 }));
+      }
       queryClient.invalidateQueries({ queryKey: ["workItems"] });
     } else if (
       userMove.isMove &&
@@ -58,10 +65,13 @@ const WorkItem = ({
       column.stage !== 1 &&
       column.stage !== 4
     ) {
-      await axios.post("/api/blockWorkItem", {
+      const result = await axios.post("/api/blockWorkItem", {
         data: { workItemId: id, userId },
       });
       setUserMove({ isMove: false, card: "" });
+      if (result.data.nextDay) {
+        dispatch(updateActiveDat({ activeDay: activeDay + 1 }));
+      }
       queryClient.invalidateQueries({ queryKey: ["workItems"] });
     }
   };
