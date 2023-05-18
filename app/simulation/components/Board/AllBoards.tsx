@@ -31,7 +31,7 @@ const AllBoards = () => {
         top: ref?.current?.offsetTop,
         behavior: "smooth",
       });
-    }, 1000);
+    }, 800);
   }, []);
   const fetchWorkItem = async () => {
     const workItems = await axios.post("/api/getWorkItems", {
