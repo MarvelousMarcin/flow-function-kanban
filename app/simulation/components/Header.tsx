@@ -12,11 +12,13 @@ export interface UserSelector {
 
 const Header = () => {
   const color = useSelector((state: UserSelector) => state.user.color);
+  const gameKey = useSelector((state: UserSelector) => state.user.gameKey);
+
   return (
     <>
       <header className="flex flex-row bg-white z-20 justify-between h-[10vh] items-center px-10 fixed top-0 left-0 w-screen">
         <div className="font-bold flex justify-center items-center">
-          Room code: <span className="text-orang">YTZ13CI</span>
+          Room code: <span className="text-orang">{gameKey}</span>
         </div>
         <section className="flex flex-row gap-11">
           <div className="font-bold">

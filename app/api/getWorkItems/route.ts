@@ -17,7 +17,7 @@ export async function POST(request: Request) {
   const developemnt = allWorkItems.filter(
     (item) => item.table === "Development"
   );
-  const desing = allWorkItems.filter((item) => item.table === "Desing");
+  const desing = allWorkItems.filter((item) => item.table === "Design");
   const release = allWorkItems.filter((item) => item.table === "Release");
 
   return NextResponse.json(

@@ -25,12 +25,10 @@ export async function POST(request: Request) {
   function generateRandomNumber(): number {
     return Math.floor(Math.random() * 4);
   }
-
   if (findUser.length !== 0) {
     return NextResponse.json(findUser[0], { status: 200 });
   } else {
     const table = ["Strategic Value", "Development", "Release", "Design"];
-
     const newUser = await prisma.user.create({
       data: {
         name: name,
