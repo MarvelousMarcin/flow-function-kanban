@@ -1,4 +1,17 @@
+import { useSelector } from "react-redux";
+
+export interface UserSelector {
+  user: {
+    name: string;
+    id: string;
+    color: string;
+    table: string;
+    gameKey: string;
+  };
+}
+
 const Header = () => {
+  const color = useSelector((state: UserSelector) => state.user.color);
   return (
     <>
       <header className="flex flex-row justify-between h-[10vh] items-center px-10 fixed top-0 left-0 w-screen">
@@ -14,7 +27,10 @@ const Header = () => {
           </div>
           <div className="font-bold flex flex-row justify-center items-center gap-4">
             <h1>Your color:</h1>
-            <div className="w-[20px] h-[20px] rounded-full bg-slate-950"></div>
+            <div
+              style={{ backgroundColor: color }}
+              className="w-[20px] h-[20px] rounded-full bg-slate-950"
+            ></div>
           </div>
           <div className="font-bold">
             Players: <span className="text-orang">0/12</span>

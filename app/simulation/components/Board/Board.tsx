@@ -75,7 +75,7 @@ const Board = ({ name, items, user, setUserMove, userMove }: BoardType) => {
       <section className="flex flex-row w-5/6  justify-evenly">
         {tables[name].columns.map((column) => (
           <>
-            <Column columnName={column.name}>
+            <Column key={column.name} columnName={column.name}>
               {items
                 ?.filter((item) => item.stage === column.stage)
                 .map((item) => (

@@ -3,21 +3,18 @@ import Board from "./Board";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-
-const fetchWorkItem = async () => {
-  const workItems = await axios.post("/api/getWorkItems", {
-    data: { gameCode: "6X1TQ5" },
-  });
-  return workItems;
-};
+import { useSelector } from "react-redux";
+import { UserSelector } from "../Header";
 
 const AllBoards = () => {
   const [userMove, setUserMove] = useState({ isMove: false, card: "" });
+  const user = useSelector((state: UserSelector) => state.user);
 
-  const user = {
-    name: "John",
-    color: "#333333",
-    table: "Design",
+  const fetchWorkItem = async () => {
+    const workItems = await axios.post("/api/getWorkItems", {
+      data: { gameCode: user.gameKey },
+    });
+    return workItems;
   };
 
   const { isLoading, isError, data, error } = useQuery({

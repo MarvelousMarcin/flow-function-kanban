@@ -1,8 +1,8 @@
 "use client";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import Router from "next/router";
-
+import { useDispatch } from "react-redux";
+import { updateUser } from "@/app/slice/userSlice";
 type JoinSimulationBtnType = {
   userData: {
     name: string;
@@ -10,13 +10,26 @@ type JoinSimulationBtnType = {
   };
 };
 
+export interface User {
+  name: string;
+  id: string;
+  color: string;
+  table: string;
+  gameKey: string;
+}
+
 const JoinSimulationBtn = ({ userData }: JoinSimulationBtnType) => {
+  const router = useRouter();
+  const dispatch = useDispatch();
   const handleJoinSimulation = async () => {
     const getUser = await axios.post("/api/joinSimulation", {
       data: { name: userData.name, gameKey: userData.key },
     });
 
-    const user = getUser.data[0];
+    const user = getUser.data[0] as User;
+    dispatch(updateUser(user));
+
+    router.push(`/simulation`);
   };
 
   return (
