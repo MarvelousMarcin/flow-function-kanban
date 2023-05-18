@@ -22,7 +22,6 @@ const AllBoards = () => {
     queryFn: fetchWorkItem,
     refetchOnWindowFocus: false,
   });
-
   if (isLoading) {
     return <div></div>;
   }

@@ -8,6 +8,7 @@ export async function POST(request: Request) {
 
   const allWorkItems = await prisma.workItem.findMany({
     where: { game_id: gameCode },
+    include: { owner: true },
   });
 
   const strategic = allWorkItems.filter(

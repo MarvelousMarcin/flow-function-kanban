@@ -4,6 +4,7 @@ import { prisma } from "@/prisma/client";
 export async function POST(request: Request) {
   const body = await request.json();
   const workItemId = body.data.workItemId;
+  const userId = body.data.userId;
 
   const findWorkItem = await prisma.workItem.findUnique({
     where: { id: workItemId },
@@ -19,7 +20,7 @@ export async function POST(request: Request) {
     if (moveNewItem)
       await prisma.workItem.update({
         where: { id: moveNewItem?.id },
-        data: { stage: moveNewItem?.stage + 1 },
+        data: { stage: moveNewItem?.stage + 1, ownerId: userId },
       });
   }
 

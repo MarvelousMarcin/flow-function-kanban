@@ -3,6 +3,8 @@
 import axios from "axios";
 import Dot from "./Dot";
 import { useQueryClient } from "@tanstack/react-query";
+import { useSelector } from "react-redux";
+import { UserSelector } from "./Header";
 
 type setUserMoveType = {
   isMove: boolean;
@@ -15,6 +17,9 @@ type WorkItemType = {
   owner: {
     name: string;
     color: string;
+    table: string;
+    id: string;
+    gameKey: string;
   };
   leadTime: number;
   blocker: number;
@@ -38,10 +43,13 @@ const WorkItem = ({
   column,
 }: WorkItemType) => {
   const queryClient = useQueryClient();
-
+  const userId = useSelector((state: UserSelector) => state.user.id);
+  console.log(owner);
   const clickItemHandler = async () => {
     if (userMove.isMove && userMove.card === "green" && column.stage !== 4) {
-      await axios.post("/api/moveWorkItem", { data: { workItemId: id } });
+      await axios.post("/api/moveWorkItem", {
+        data: { workItemId: id, userId },
+      });
       setUserMove({ isMove: false, card: "" });
       queryClient.invalidateQueries({ queryKey: ["workItems"] });
     } else if (
@@ -50,7 +58,9 @@ const WorkItem = ({
       column.stage !== 1 &&
       column.stage !== 4
     ) {
-      await axios.post("/api/blockWorkItem", { data: { workItemId: id } });
+      await axios.post("/api/blockWorkItem", {
+        data: { workItemId: id, userId },
+      });
       setUserMove({ isMove: false, card: "" });
       queryClient.invalidateQueries({ queryKey: ["workItems"] });
     }

@@ -18,7 +18,13 @@ type WorkItem = {
   start: number;
   end: number;
   lead_time: number;
-  owner: { name: string; color: string };
+  owner: {
+    name: string;
+    color: string;
+    table: string;
+    id: string;
+    gameKey: string;
+  };
   table: string;
 };
 
