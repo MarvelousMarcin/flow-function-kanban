@@ -22,11 +22,12 @@ const JoinSimulationBtn = ({ userData }: JoinSimulationBtnType) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const handleJoinSimulation = async () => {
+    console.log(userData);
     const getUser = await axios.post("/api/joinSimulation", {
       data: { name: userData.name, gameKey: userData.key },
     });
 
-    const user = getUser.data[0] as User;
+    const user = getUser.data as User;
     dispatch(updateUser(user));
 
     router.push(`/simulation`);

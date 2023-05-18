@@ -24,11 +24,11 @@ export const userReducer = createSlice({
   initialState,
   reducers: {
     updateUser: (state, action: PayloadAction<UserState>) => {
-      state.name = action.payload.name;
-      state.id = action.payload.id;
-      state.color = action.payload.color;
-      state.table = action.payload.table;
-      state.gameKey = action.payload.gameKey;
+      state.name = action?.payload.name;
+      state.id = action?.payload.id;
+      state.color = action?.payload.color;
+      state.table = action?.payload.table;
+      state.gameKey = action?.payload.gameKey;
     },
   },
 });

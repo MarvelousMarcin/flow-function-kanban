@@ -44,7 +44,6 @@ const WorkItem = ({
 }: WorkItemType) => {
   const queryClient = useQueryClient();
   const userId = useSelector((state: UserSelector) => state.user.id);
-  console.log(owner);
   const clickItemHandler = async () => {
     if (userMove.isMove && userMove.card === "green" && column.stage !== 4) {
       await axios.post("/api/moveWorkItem", {

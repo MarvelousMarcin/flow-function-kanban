@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/prisma/client";
 
-const tables = ["Strategic Value", "Desing", "Development", "Release"];
+const tables = ["Strategic Value", "Design", "Development", "Release"];
 
 function getRandomGameCode(): string {
   const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -28,19 +28,19 @@ export async function GET() {
   const workItems = [];
 
   for (let i = 0; i < 4; i++) {
-    for (let j = 0; j < 5; j++) {
-      const workItem = await prisma.workItem.create({
-        data: {
-          blocker: 0,
-          game_id: newGame.code,
-          table: tables[i],
-          start: 0,
-          stage: 1,
-        },
-      });
-      workItems.push(workItem);
+    for (let j = 0; j < 20; j++) {
+      const item = {
+        blocker: 0,
+        game_id: newGame.code,
+        table: tables[i],
+        start: 0,
+        stage: 1,
+      };
+      workItems.push(item);
     }
   }
+
+  await prisma.workItem.createMany({ data: workItems });
 
   return NextResponse.json({ data: workItems }, { status: 200 });
 }
