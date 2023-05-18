@@ -34,7 +34,7 @@ export async function POST(request: Request) {
       data: { blocker: findWorkItem.blocker + 1 },
     });
     const moveNewItem = await prisma.workItem.findFirst({
-      where: { stage: 1, table: findWorkItem.table },
+      where: { stage: 1, table: findWorkItem.table, game_id: gameKey },
     });
     if (moveNewItem) {
       await prisma.workItem.update({
@@ -43,7 +43,7 @@ export async function POST(request: Request) {
       });
     }
     const ifAllUsersMoved = await prisma.user.findMany({
-      where: { NOT: { moves: activeDat } },
+      where: { NOT: { moves: activeDat }, gameKey },
     });
 
     if (ifAllUsersMoved.length === 0) {

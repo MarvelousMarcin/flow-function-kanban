@@ -17,7 +17,6 @@ export async function POST(request: Request) {
   const activeDat = Number(user?.game?.day);
   const userMoves = user?.moves as number;
   const gameKey = findWorkItem?.game_id;
-  console.log(userMoves, findWorkItem);
 
   if (Number(activeDat) === Number(userMoves)) {
     return NextResponse.json(
@@ -38,17 +37,18 @@ export async function POST(request: Request) {
         where: { id: workItemId },
         data: { blocker: findWorkItem.blocker - 1 },
       });
-    }
-    if (findWorkItem.stage === 1) {
-      await prisma.workItem.update({
-        where: { id: workItemId },
-        data: { stage: findWorkItem.stage + 1, ownerId: userId },
-      });
     } else {
-      await prisma.workItem.update({
-        where: { id: workItemId },
-        data: { stage: findWorkItem.stage + 1 },
-      });
+      if (findWorkItem.stage === 1) {
+        await prisma.workItem.update({
+          where: { id: workItemId },
+          data: { stage: findWorkItem.stage + 1, ownerId: userId },
+        });
+      } else {
+        await prisma.workItem.update({
+          where: { id: workItemId },
+          data: { stage: findWorkItem.stage + 1 },
+        });
+      }
     }
   }
 
