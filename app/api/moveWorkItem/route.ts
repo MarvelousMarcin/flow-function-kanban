@@ -53,8 +53,10 @@ export async function POST(request: Request) {
   }
 
   const ifAllUsersMoved = await prisma.user.findMany({
-    where: { NOT: { moves: activeDat } },
+    where: { NOT: { moves: activeDat }, gameKey },
   });
+
+  console.log(ifAllUsersMoved);
 
   if (ifAllUsersMoved.length === 0) {
     await prisma.game.update({

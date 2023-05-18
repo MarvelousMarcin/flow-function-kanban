@@ -17,7 +17,7 @@ const AllBoards = () => {
   useEffect(() => {
     setTimeout(() => {
       let ref = null;
-
+      console.log(user);
       if (user.table === "Strategic Value") {
         ref = strRef;
       } else if (user.table === "Design") {
@@ -31,7 +31,7 @@ const AllBoards = () => {
         top: ref?.current?.offsetTop,
         behavior: "smooth",
       });
-    }, 300);
+    }, 1000);
   }, []);
   const fetchWorkItem = async () => {
     const workItems = await axios.post("/api/getWorkItems", {
