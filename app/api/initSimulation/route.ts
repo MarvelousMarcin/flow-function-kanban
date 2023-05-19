@@ -42,5 +42,5 @@ export async function GET() {
 
   await prisma.workItem.createMany({ data: workItems });
 
-  return NextResponse.json({ data: workItems }, { status: 200 });
+  return NextResponse.json({ gameCode: newGameCode }, { status: 200 });
 }

@@ -1,5 +1,5 @@
 "use client";
-import JoinSimulationBtn from "./components/JoinSimulationBtn";
+import JoinSimulationBtn from "./JoinSimulationBtn";
 import { useState } from "react";
 
 const JoinSimulationForm = () => {

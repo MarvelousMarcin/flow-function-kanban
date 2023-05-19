@@ -4,38 +4,27 @@ import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { updateUser } from "@/app/slice/userSlice";
 import { updateActiveDat } from "@/app/slice/userSlice";
-
-type JoinSimulationBtnType = {
-  userData: {
+import { User } from "../joinSimulation/JoinSimulationBtn";
+type CreateSimulationBtnType = {
+  simulationData: {
     name: string;
-    key: string;
+    playersCount: number;
   };
 };
 
-export interface User {
-  name: string;
-  id: string;
-  color: string;
-  table: string;
-  gameKey: string;
-  activeDay: {
-    id: string;
-    code: string;
-    day: number;
-  };
-}
-
-const JoinSimulationBtn = ({ userData }: JoinSimulationBtnType) => {
+const CreateSimulationBtn = ({ simulationData }: CreateSimulationBtnType) => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const handleJoinSimulation = async () => {
-    console.log(userData);
+  const handleCreateSimulation = async () => {
+    const result = await axios.get("/api/initSimulation");
+    const gameKey = result.data.gameCode;
+
     const getUser = await axios.post("/api/joinSimulation", {
-      data: { name: userData.name, gameKey: userData.key },
+      data: { name: simulationData.name, gameKey },
     });
 
     const user = getUser.data as User;
-    console.log(user);
+
     dispatch(
       updateUser({
         color: user.color,
@@ -56,12 +45,12 @@ const JoinSimulationBtn = ({ userData }: JoinSimulationBtnType) => {
 
   return (
     <button
-      onClick={handleJoinSimulation}
-      className="bg-orang text-black font-bold p-4 px-10"
+      onClick={handleCreateSimulation}
+      className="bg-orang text-black font-bold p-4 px-10 mt-4"
     >
-      Join
+      Create
     </button>
   );
 };
 
-export default JoinSimulationBtn;
+export default CreateSimulationBtn;
