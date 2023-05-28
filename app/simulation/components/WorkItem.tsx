@@ -111,19 +111,19 @@ const WorkItem = ({
       <article className="flex flex-row justify-evenly w-full">
         <div>
           <h2 className="font-bold text-xs">Start</h2>
-          <section className="w-11 h-4 rounded-full bg-white text-black text-center font-bold flex justify-center items-center text-sm">
+          <section className="w-11 h-5 rounded-full bg-white text-black text-center font-bold flex justify-center items-center text-sm">
             {start}
           </section>
         </div>
         <div>
           <h2 className="font-bold text-xs">End</h2>
-          <section className="w-11 h-4 rounded-full bg-white text-black text-center font-bold flex justify-center items-center text-sm">
+          <section className="w-11 h-5 rounded-full bg-white text-black text-center font-bold flex justify-center items-center text-sm">
             {end}
           </section>
         </div>
         <div>
           <h2 className="font-bold text-xs">Lead Time</h2>
-          <section className="w-11 h-4 rounded-full bg-white text-black text-center font-bold flex justify-center items-center text-sm">
+          <section className="w-11 h-5 rounded-full bg-white text-black text-center font-bold flex justify-center items-center text-sm">
             {leadTime}
           </section>
         </div>

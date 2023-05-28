@@ -41,13 +41,28 @@ export async function POST(request: Request) {
       if (findWorkItem.stage === 1) {
         await prisma.workItem.update({
           where: { id: workItemId },
-          data: { stage: findWorkItem.stage + 1, ownerId: userId },
+          data: {
+            stage: findWorkItem.stage + 1,
+            ownerId: userId,
+            start: activeDat,
+          },
         });
       } else {
-        await prisma.workItem.update({
-          where: { id: workItemId },
-          data: { stage: findWorkItem.stage + 1 },
-        });
+        if (findWorkItem.stage + 1 === 4 && findWorkItem.table === "Release") {
+          await prisma.workItem.update({
+            where: { id: workItemId },
+            data: {
+              stage: findWorkItem.stage + 1,
+              lead_time: activeDat - findWorkItem.start,
+              end: activeDat,
+            },
+          });
+        } else {
+          await prisma.workItem.update({
+            where: { id: workItemId },
+            data: { stage: findWorkItem.stage + 1 },
+          });
+        }
       }
     }
   }
