@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-
+import PlayersCount from "./PlayersCount";
 export interface UserSelector {
   user: {
     name: string;
@@ -8,6 +8,7 @@ export interface UserSelector {
     table: string;
     gameKey: string;
     activeDay: number;
+    players: number;
   };
 }
 
@@ -15,6 +16,7 @@ const Header = () => {
   const color = useSelector((state: UserSelector) => state.user.color);
   const gameKey = useSelector((state: UserSelector) => state.user.gameKey);
   const activeDay = useSelector((state: UserSelector) => state.user.activeDay);
+  const players = useSelector((state: UserSelector) => state.user.players);
 
   return (
     <>
@@ -36,9 +38,7 @@ const Header = () => {
               className="w-[20px] h-[20px] rounded-full bg-slate-950"
             ></div>
           </div>
-          <div className="font-bold">
-            Players: <span className="text-orang">0/12</span>
-          </div>
+          <PlayersCount players={players} />
         </section>
       </header>
     </>

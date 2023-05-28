@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { updateUser } from "@/app/slice/userSlice";
 import { updateActiveDat } from "@/app/slice/userSlice";
+import { updatePlayers } from "@/app/slice/userSlice";
 
 type JoinSimulationBtnType = {
   userData: {
@@ -23,6 +24,7 @@ export interface User {
     code: string;
     day: number;
   };
+  howManyPlayers: number;
 }
 
 const JoinSimulationBtn = ({ userData }: JoinSimulationBtnType) => {
@@ -30,7 +32,8 @@ const JoinSimulationBtn = ({ userData }: JoinSimulationBtnType) => {
   const dispatch = useDispatch();
   const handleJoinSimulation = async () => {
     const getUser = await axios.post("http://localhost:8000/joinSimulation", {
-      data: { name: userData.name, gameKey: userData.key },
+      name: userData.name,
+      gameKey: userData.key,
     });
 
     const user = getUser.data as User;
@@ -47,6 +50,11 @@ const JoinSimulationBtn = ({ userData }: JoinSimulationBtnType) => {
     dispatch(
       updateActiveDat({
         activeDay: user.activeDay.day,
+      })
+    );
+    dispatch(
+      updatePlayers({
+        activePlayers: user.howManyPlayers,
       })
     );
 
