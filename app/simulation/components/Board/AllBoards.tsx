@@ -34,8 +34,8 @@ const AllBoards = () => {
     }, 800);
   }, []);
   const fetchWorkItem = async () => {
-    const workItems = await axios.post("/api/getWorkItems", {
-      data: { gameCode: user.gameKey },
+    const workItems = await axios.post("http://localhost:8000/getWorkItems", {
+      gameCode: user.gameKey,
     });
     return workItems;
   };

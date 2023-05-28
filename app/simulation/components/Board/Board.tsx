@@ -44,7 +44,7 @@ type BoardType = {
 const Board = ({ name, items, user, setUserMove, userMove }: BoardType) => {
   const isMyBoard = name === user.table;
   const handleDrawCard = async () => {
-    const whatCard = await axios.post("/api/drawCard", {
+    const whatCard = await axios.post("http://localhost:8000/drawCard", {
       data: { userId: "DQREYO" },
     });
 

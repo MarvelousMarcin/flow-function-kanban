@@ -51,8 +51,9 @@ const WorkItem = ({
   const activeDay = useSelector((state: UserSelector) => state.user.activeDay);
   const clickItemHandler = async () => {
     if (userMove.isMove && userMove.card === "green" && column.stage !== 4) {
-      const result = await axios.post("/api/moveWorkItem", {
-        data: { workItemId: id, userId },
+      const result = await axios.post("http://localhost:8000/moveWorkItem", {
+        workItemId: id,
+        userId,
       });
       setUserMove({ isMove: false, card: "" });
       if (result.data.nextDay) {
@@ -65,8 +66,9 @@ const WorkItem = ({
       column.stage !== 1 &&
       column.stage !== 4
     ) {
-      const result = await axios.post("/api/blockWorkItem", {
-        data: { workItemId: id, userId },
+      const result = await axios.post("http://localhost:8000/blockWorkItem", {
+        workItemId: id,
+        userId,
       });
       setUserMove({ isMove: false, card: "" });
       if (result.data.nextDay) {

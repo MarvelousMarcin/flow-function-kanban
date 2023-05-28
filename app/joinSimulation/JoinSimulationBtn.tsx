@@ -29,7 +29,7 @@ const JoinSimulationBtn = ({ userData }: JoinSimulationBtnType) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const handleJoinSimulation = async () => {
-    const getUser = await axios.post("/api/joinSimulation", {
+    const getUser = await axios.post("http://localhost:8000/joinSimulation", {
       data: { name: userData.name, gameKey: userData.key },
     });
 

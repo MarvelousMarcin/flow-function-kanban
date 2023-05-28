@@ -16,11 +16,12 @@ const CreateSimulationBtn = ({ simulationData }: CreateSimulationBtnType) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const handleCreateSimulation = async () => {
-    const result = await axios.get("/api/initSimulation");
+    const result = await axios.get("http://localhost:8000/initSimulation");
     const gameKey = result.data.gameCode;
-
-    const getUser = await axios.post("/api/joinSimulation", {
-      data: { name: simulationData.name, gameKey },
+    console.log(simulationData.name, gameKey);
+    const getUser = await axios.post("http://localhost:8000/joinSimulation", {
+      name: simulationData.name,
+      gameKey,
     });
 
     const user = getUser.data as User;
