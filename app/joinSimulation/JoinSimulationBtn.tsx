@@ -52,6 +52,7 @@ const JoinSimulationBtn = ({ userData }: JoinSimulationBtnType) => {
         activeDay: user.activeDay.day,
       })
     );
+
     dispatch(
       updatePlayers({
         activePlayers: user.howManyPlayers,

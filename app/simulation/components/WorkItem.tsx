@@ -56,9 +56,6 @@ const WorkItem = ({
         userId,
       });
       setUserMove({ isMove: false, card: "" });
-      if (result.data.nextDay) {
-        dispatch(updateActiveDat({ activeDay: activeDay + 1 }));
-      }
       queryClient.invalidateQueries({ queryKey: ["workItems"] });
     } else if (
       userMove.isMove &&
@@ -71,9 +68,6 @@ const WorkItem = ({
         userId,
       });
       setUserMove({ isMove: false, card: "" });
-      if (result.data.nextDay) {
-        dispatch(updateActiveDat({ activeDay: activeDay + 1 }));
-      }
       queryClient.invalidateQueries({ queryKey: ["workItems"] });
     }
   };

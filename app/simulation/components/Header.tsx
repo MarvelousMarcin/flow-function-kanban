@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import PlayersCount from "./PlayersCount";
+import DaysCounter from "./DaysCounter";
 export interface UserSelector {
   user: {
     name: string;
@@ -28,9 +29,7 @@ const Header = () => {
           <div className="font-bold">
             Round: <span className="text-orang">1</span>
           </div>
-          <div className="font-bold">
-            Day: <span className="text-orang">{activeDay}</span>
-          </div>
+          <DaysCounter activeDay={activeDay} />
           <div className="font-bold flex flex-row justify-center items-center gap-4">
             <h1>Your color:</h1>
             <div

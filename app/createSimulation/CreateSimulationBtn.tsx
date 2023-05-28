@@ -5,6 +5,8 @@ import { useDispatch } from "react-redux";
 import { updateUser } from "@/app/slice/userSlice";
 import { updateActiveDat } from "@/app/slice/userSlice";
 import { User } from "../joinSimulation/JoinSimulationBtn";
+import { updatePlayers } from "@/app/slice/userSlice";
+
 type CreateSimulationBtnType = {
   simulationData: {
     name: string;
@@ -38,6 +40,12 @@ const CreateSimulationBtn = ({ simulationData }: CreateSimulationBtnType) => {
     dispatch(
       updateActiveDat({
         activeDay: user.activeDay.day,
+      })
+    );
+
+    dispatch(
+      updatePlayers({
+        activePlayers: user.howManyPlayers,
       })
     );
 
