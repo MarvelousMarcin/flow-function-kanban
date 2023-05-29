@@ -17,7 +17,6 @@ const AllBoards = () => {
   useEffect(() => {
     setTimeout(() => {
       let ref = null;
-      console.log(user);
       if (user.table === "Strategic Value") {
         ref = strRef;
       } else if (user.table === "Design") {

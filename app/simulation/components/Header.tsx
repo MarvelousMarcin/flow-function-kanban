@@ -16,8 +16,6 @@ export interface UserSelector {
 const Header = () => {
   const color = useSelector((state: UserSelector) => state.user.color);
   const gameKey = useSelector((state: UserSelector) => state.user.gameKey);
-  const activeDay = useSelector((state: UserSelector) => state.user.activeDay);
-  const players = useSelector((state: UserSelector) => state.user.players);
 
   return (
     <>
@@ -29,7 +27,7 @@ const Header = () => {
           <div className="font-bold">
             Round: <span className="text-orang">1</span>
           </div>
-          <DaysCounter activeDay={activeDay} />
+          <DaysCounter />
           <div className="font-bold flex flex-row justify-center items-center gap-4">
             <h1>Your color:</h1>
             <div
@@ -37,7 +35,7 @@ const Header = () => {
               className="w-[20px] h-[20px] rounded-full bg-slate-950"
             ></div>
           </div>
-          <PlayersCount players={players} />
+          <PlayersCount />
         </section>
       </header>
     </>
