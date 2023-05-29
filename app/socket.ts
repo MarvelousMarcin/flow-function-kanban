@@ -1,13 +1,6 @@
-import { io } from "socket.io-client";
-const URL =
-  process.env.NODE_ENV === "production" ? undefined : "http://localhost:8000";
+import { io, Socket } from "socket.io-client";
 
-let socket;
-
-if (URL) {
-  socket = io(URL, {
-    autoConnect: false,
-  });
-}
+// please note that the types are reversed
+const socket = io("http://localhost:8000");
 
 export default socket;
