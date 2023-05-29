@@ -12,6 +12,7 @@ export interface UserState {
   activeDay: number;
   players: number;
   round: number;
+  move: { isMove: boolean; card: string };
 }
 
 const initialState: UserState = {
@@ -23,6 +24,7 @@ const initialState: UserState = {
   activeDay: 1,
   players: 0,
   round: 1,
+  move: { isMove: false, card: "" },
 };
 
 interface UserPayload {
@@ -42,6 +44,11 @@ interface ActivePlayers {
 
 interface RoundSetPayload {
   round: number;
+}
+
+interface UserMovePayload {
+  isMove: boolean;
+  card: string;
 }
 
 export const userReducer = createSlice({
@@ -64,11 +71,20 @@ export const userReducer = createSlice({
     updateRound: (state, action: PayloadAction<RoundSetPayload>) => {
       state.round = action?.payload.round;
     },
+    updateUserMove: (state, action: PayloadAction<UserMovePayload>) => {
+      state.move.card = action?.payload.card;
+      state.move.isMove = action?.payload.isMove;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { updateUser, updateActiveDat, updatePlayers, updateRound } =
-  userReducer.actions;
+export const {
+  updateUser,
+  updateActiveDat,
+  updatePlayers,
+  updateRound,
+  updateUserMove,
+} = userReducer.actions;
 
 export default userReducer.reducer;

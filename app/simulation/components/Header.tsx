@@ -11,6 +11,7 @@ export interface UserSelector {
     gameKey: string;
     activeDay: number;
     players: number;
+    move: { isMove: boolean; card: string };
   };
 }
 

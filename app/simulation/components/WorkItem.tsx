@@ -3,11 +3,10 @@
 import axios from "axios";
 import Dot from "./Dot";
 import { useQueryClient } from "@tanstack/react-query";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { UserSelector } from "./Header";
 import { motion } from "framer-motion";
-import { updateActiveDat } from "@/app/slice/userSlice";
-import { useDispatch } from "react-redux";
+import { updateUserMove } from "@/app/slice/userSlice";
 
 type setUserMoveType = {
   isMove: boolean;
@@ -27,9 +26,7 @@ type WorkItemType = {
   leadTime: number;
   blocker: number;
   stage: number;
-  userMove: { isMove: boolean; card: string };
   id: string;
-  setUserMove: ({ isMove, card }: setUserMoveType) => void;
   column: { name: string; stage: number };
 };
 
@@ -41,21 +38,22 @@ const WorkItem = ({
   leadTime,
   blocker,
   stage,
-  userMove,
-  setUserMove,
   column,
 }: WorkItemType) => {
   const queryClient = useQueryClient();
-  const dispatch = useDispatch();
   const userId = useSelector((state: UserSelector) => state.user.id);
-  const activeDay = useSelector((state: UserSelector) => state.user.activeDay);
+  const userMove = useSelector((state: UserSelector) => state.user.move);
+  const dispatch = useDispatch();
+
   const clickItemHandler = async () => {
     if (userMove.isMove && userMove.card === "green" && column.stage !== 4) {
-      const result = await axios.post("http://localhost:8000/moveWorkItem", {
+      dispatch(updateUserMove({ card: "waiting", isMove: true }));
+
+      await axios.post("http://localhost:8000/moveWorkItem", {
         workItemId: id,
         userId,
       });
-      setUserMove({ isMove: false, card: "" });
+
       queryClient.invalidateQueries({ queryKey: ["workItems"] });
     } else if (
       userMove.isMove &&
@@ -63,11 +61,12 @@ const WorkItem = ({
       column.stage !== 1 &&
       column.stage !== 4
     ) {
-      const result = await axios.post("http://localhost:8000/blockWorkItem", {
+      dispatch(updateUserMove({ card: "waiting", isMove: true }));
+
+      await axios.post("http://localhost:8000/blockWorkItem", {
         workItemId: id,
         userId,
       });
-      setUserMove({ isMove: false, card: "" });
       queryClient.invalidateQueries({ queryKey: ["workItems"] });
     }
   };

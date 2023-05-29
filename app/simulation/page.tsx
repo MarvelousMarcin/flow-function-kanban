@@ -12,6 +12,7 @@ import {
   updateActiveDat,
   updatePlayers,
   updateRound,
+  updateUserMove,
 } from "@/app/slice/userSlice";
 
 export default function Simulation() {
@@ -25,6 +26,12 @@ export default function Simulation() {
         dispatch(
           updateActiveDat({
             activeDay: arg.newDay,
+          })
+        );
+        dispatch(
+          updateUserMove({
+            card: "",
+            isMove: false,
           })
         );
         toast.success("New Day");
