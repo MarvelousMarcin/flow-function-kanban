@@ -28,7 +28,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "app/socket.js"
+    "app/socket.ts"
   ],
   "exclude": ["node_modules"]
 }
