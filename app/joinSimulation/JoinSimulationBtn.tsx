@@ -2,8 +2,9 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
-import { updateUser } from "@/app/slice/userSlice";
+import { updateRound, updateUser } from "@/app/slice/userSlice";
 import { updateActiveDat } from "@/app/slice/userSlice";
+import { updatePlayers } from "@/app/slice/userSlice";
 
 type JoinSimulationBtnType = {
   userData: {
@@ -22,20 +23,22 @@ export interface User {
     id: string;
     code: string;
     day: number;
+    round: number;
   };
+  howManyPlayers: number;
 }
 
 const JoinSimulationBtn = ({ userData }: JoinSimulationBtnType) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const handleJoinSimulation = async () => {
-    console.log(userData);
-    const getUser = await axios.post("/api/joinSimulation", {
-      data: { name: userData.name, gameKey: userData.key },
+    const getUser = await axios.post("http://localhost:8000/joinSimulation", {
+      name: userData.name,
+      gameKey: userData.key,
     });
 
     const user = getUser.data as User;
-    console.log(user);
+
     dispatch(
       updateUser({
         color: user.color,
@@ -48,6 +51,18 @@ const JoinSimulationBtn = ({ userData }: JoinSimulationBtnType) => {
     dispatch(
       updateActiveDat({
         activeDay: user.activeDay.day,
+      })
+    );
+
+    dispatch(
+      updatePlayers({
+        activePlayers: user.howManyPlayers,
+      })
+    );
+
+    dispatch(
+      updateRound({
+        round: user.activeDay.round,
       })
     );
 

@@ -3,11 +3,10 @@
 import axios from "axios";
 import Dot from "./Dot";
 import { useQueryClient } from "@tanstack/react-query";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { UserSelector } from "./Header";
 import { motion } from "framer-motion";
-import { updateActiveDat } from "@/app/slice/userSlice";
-import { useDispatch } from "react-redux";
+import { updateUserMove } from "@/app/slice/userSlice";
 
 type setUserMoveType = {
   isMove: boolean;
@@ -27,9 +26,7 @@ type WorkItemType = {
   leadTime: number;
   blocker: number;
   stage: number;
-  userMove: { isMove: boolean; card: string };
   id: string;
-  setUserMove: ({ isMove, card }: setUserMoveType) => void;
   column: { name: string; stage: number };
 };
 
@@ -41,23 +38,22 @@ const WorkItem = ({
   leadTime,
   blocker,
   stage,
-  userMove,
-  setUserMove,
   column,
 }: WorkItemType) => {
   const queryClient = useQueryClient();
-  const dispatch = useDispatch();
   const userId = useSelector((state: UserSelector) => state.user.id);
-  const activeDay = useSelector((state: UserSelector) => state.user.activeDay);
+  const userMove = useSelector((state: UserSelector) => state.user.move);
+  const dispatch = useDispatch();
+
   const clickItemHandler = async () => {
     if (userMove.isMove && userMove.card === "green" && column.stage !== 4) {
-      const result = await axios.post("/api/moveWorkItem", {
-        data: { workItemId: id, userId },
+      dispatch(updateUserMove({ card: "waiting", isMove: true }));
+
+      await axios.post("http://localhost:8000/moveWorkItem", {
+        workItemId: id,
+        userId,
       });
-      setUserMove({ isMove: false, card: "" });
-      if (result.data.nextDay) {
-        dispatch(updateActiveDat({ activeDay: activeDay + 1 }));
-      }
+
       queryClient.invalidateQueries({ queryKey: ["workItems"] });
     } else if (
       userMove.isMove &&
@@ -65,13 +61,12 @@ const WorkItem = ({
       column.stage !== 1 &&
       column.stage !== 4
     ) {
-      const result = await axios.post("/api/blockWorkItem", {
-        data: { workItemId: id, userId },
+      dispatch(updateUserMove({ card: "waiting", isMove: true }));
+
+      await axios.post("http://localhost:8000/blockWorkItem", {
+        workItemId: id,
+        userId,
       });
-      setUserMove({ isMove: false, card: "" });
-      if (result.data.nextDay) {
-        dispatch(updateActiveDat({ activeDay: activeDay + 1 }));
-      }
       queryClient.invalidateQueries({ queryKey: ["workItems"] });
     }
   };
@@ -111,19 +106,19 @@ const WorkItem = ({
       <article className="flex flex-row justify-evenly w-full">
         <div>
           <h2 className="font-bold text-xs">Start</h2>
-          <section className="w-11 h-4 rounded-full bg-white text-black text-center font-bold flex justify-center items-center text-sm">
+          <section className="w-11 h-5 rounded-full bg-white text-black text-center font-bold flex justify-center items-center text-sm">
             {start}
           </section>
         </div>
         <div>
           <h2 className="font-bold text-xs">End</h2>
-          <section className="w-11 h-4 rounded-full bg-white text-black text-center font-bold flex justify-center items-center text-sm">
+          <section className="w-11 h-5 rounded-full bg-white text-black text-center font-bold flex justify-center items-center text-sm">
             {end}
           </section>
         </div>
         <div>
           <h2 className="font-bold text-xs">Lead Time</h2>
-          <section className="w-11 h-4 rounded-full bg-white text-black text-center font-bold flex justify-center items-center text-sm">
+          <section className="w-11 h-5 rounded-full bg-white text-black text-center font-bold flex justify-center items-center text-sm">
             {leadTime}
           </section>
         </div>

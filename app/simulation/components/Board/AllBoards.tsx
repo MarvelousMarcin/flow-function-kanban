@@ -17,7 +17,6 @@ const AllBoards = () => {
   useEffect(() => {
     setTimeout(() => {
       let ref = null;
-      console.log(user);
       if (user.table === "Strategic Value") {
         ref = strRef;
       } else if (user.table === "Design") {
@@ -27,6 +26,7 @@ const AllBoards = () => {
       } else {
         ref = relRef;
       }
+
       window.scrollTo({
         top: ref?.current?.offsetTop,
         behavior: "smooth",
@@ -34,8 +34,8 @@ const AllBoards = () => {
     }, 800);
   }, []);
   const fetchWorkItem = async () => {
-    const workItems = await axios.post("/api/getWorkItems", {
-      data: { gameCode: user.gameKey },
+    const workItems = await axios.post("http://localhost:8000/getWorkItems", {
+      gameCode: user.gameKey,
     });
     return workItems;
   };
@@ -58,7 +58,6 @@ const AllBoards = () => {
         items={workItemsData["Strategic Value"]}
         user={user}
         setUserMove={setUserMove}
-        userMove={userMove}
       />
       <div ref={desRef}></div>
       <Board
@@ -67,7 +66,6 @@ const AllBoards = () => {
         items={workItemsData["Design"]}
         user={user}
         setUserMove={setUserMove}
-        userMove={userMove}
       />
       <div ref={devRef}></div>
       <Board
@@ -76,7 +74,6 @@ const AllBoards = () => {
         items={workItemsData["Development"]}
         user={user}
         setUserMove={setUserMove}
-        userMove={userMove}
       />
       <div ref={relRef}></div>
       <Board
@@ -85,7 +82,6 @@ const AllBoards = () => {
         items={workItemsData["Release"]}
         user={user}
         setUserMove={setUserMove}
-        userMove={userMove}
       />
     </>
   );

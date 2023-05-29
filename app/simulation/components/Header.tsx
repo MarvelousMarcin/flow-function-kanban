@@ -1,5 +1,7 @@
 import { useSelector } from "react-redux";
-
+import PlayersCount from "./PlayersCount";
+import DaysCounter from "./DaysCounter";
+import Rounds from "./Rounds";
 export interface UserSelector {
   user: {
     name: string;
@@ -8,27 +10,24 @@ export interface UserSelector {
     table: string;
     gameKey: string;
     activeDay: number;
+    players: number;
+    move: { isMove: boolean; card: string };
   };
 }
 
 const Header = () => {
   const color = useSelector((state: UserSelector) => state.user.color);
   const gameKey = useSelector((state: UserSelector) => state.user.gameKey);
-  const activeDay = useSelector((state: UserSelector) => state.user.activeDay);
 
   return (
     <>
       <header className="flex flex-row bg-white z-20 justify-between h-[10vh] items-center px-10 fixed top-0 left-0 w-screen">
-        <div className="font-bold flex justify-center items-center">
+        <div className="font-bold flex justify-center items-center gap-2">
           Room code: <span className="text-orang">{gameKey}</span>
         </div>
         <section className="flex flex-row gap-11">
-          <div className="font-bold">
-            Round: <span className="text-orang">1</span>
-          </div>
-          <div className="font-bold">
-            Day: <span className="text-orang">{activeDay}</span>
-          </div>
+          <Rounds />
+          <DaysCounter />
           <div className="font-bold flex flex-row justify-center items-center gap-4">
             <h1>Your color:</h1>
             <div
@@ -36,9 +35,7 @@ const Header = () => {
               className="w-[20px] h-[20px] rounded-full bg-slate-950"
             ></div>
           </div>
-          <div className="font-bold">
-            Players: <span className="text-orang">0/12</span>
-          </div>
+          <PlayersCount />
         </section>
       </header>
     </>

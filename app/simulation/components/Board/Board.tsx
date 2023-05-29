@@ -5,6 +5,9 @@ import WorkItem from "../WorkItem";
 import Column from "./Column";
 import { tables } from "@/app/consts/tables";
 import { motion } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
+import { UserSelector } from "../Header";
+import { updateUserMove } from "@/app/slice/userSlice";
 type setUserMoveType = {
   isMove: boolean;
   card: string;
@@ -38,22 +41,25 @@ type BoardType = {
     table: string;
   };
   setUserMove: ({ isMove, card }: setUserMoveType) => void;
-  userMove: { isMove: boolean; card: string };
 };
 
-const Board = ({ name, items, user, setUserMove, userMove }: BoardType) => {
+const Board = ({ name, items, user, setUserMove }: BoardType) => {
   const isMyBoard = name === user.table;
+  const userMove = useSelector((state: UserSelector) => state.user.move);
+  console.log(userMove);
+  const dispatch = useDispatch();
+
   const handleDrawCard = async () => {
-    const whatCard = await axios.post("/api/drawCard", {
+    const whatCard = await axios.post("http://localhost:8000/drawCard", {
       data: { userId: "DQREYO" },
     });
 
     const card = whatCard.data.card;
 
     if (card === "green") {
-      setUserMove({ isMove: true, card: "green" });
+      dispatch(updateUserMove({ card: "green", isMove: true }));
     } else {
-      setUserMove({ isMove: true, card: "red" });
+      dispatch(updateUserMove({ card: "red", isMove: true }));
     }
   };
 
@@ -93,6 +99,15 @@ const Board = ({ name, items, user, setUserMove, userMove }: BoardType) => {
             Move item
           </motion.div>
         )}
+        {isMyBoard && userMove.isMove && userMove.card === "waiting" && (
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            className="absolute right-0  font-bold p-3  text-main w-44 text-center"
+          >
+            Waiting for others
+          </motion.div>
+        )}
       </section>
       <section className="flex flex-row w-5/6  justify-evenly">
         {tables[name].columns.map((column) => (
@@ -102,14 +117,12 @@ const Board = ({ name, items, user, setUserMove, userMove }: BoardType) => {
                 ?.filter((item) => item.stage === column.stage)
                 .map((item) => (
                   <WorkItem
-                    userMove={userMove}
                     start={item.start}
                     end={item.end}
                     key={Math.random()}
                     id={item.id}
                     leadTime={item.lead_time}
                     blocker={item.blocker}
-                    setUserMove={setUserMove}
                     column={column}
                     stage={
                       name === "Strategic Value"
