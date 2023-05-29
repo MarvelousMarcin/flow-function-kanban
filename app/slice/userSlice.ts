@@ -11,6 +11,7 @@ export interface UserState {
   gameKey: string;
   activeDay: number;
   players: number;
+  round: number;
 }
 
 const initialState: UserState = {
@@ -21,6 +22,7 @@ const initialState: UserState = {
   gameKey: "",
   activeDay: 1,
   players: 0,
+  round: 1,
 };
 
 interface UserPayload {
@@ -36,6 +38,10 @@ interface ActiveDayPayload {
 }
 interface ActivePlayers {
   activePlayers: number;
+}
+
+interface RoundSetPayload {
+  round: number;
 }
 
 export const userReducer = createSlice({
@@ -55,11 +61,14 @@ export const userReducer = createSlice({
     updatePlayers: (state, action: PayloadAction<ActivePlayers>) => {
       state.players = action?.payload.activePlayers;
     },
+    updateRound: (state, action: PayloadAction<RoundSetPayload>) => {
+      state.round = action?.payload.round;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { updateUser, updateActiveDat, updatePlayers } =
+export const { updateUser, updateActiveDat, updatePlayers, updateRound } =
   userReducer.actions;
 
 export default userReducer.reducer;

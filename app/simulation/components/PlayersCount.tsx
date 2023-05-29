@@ -15,7 +15,6 @@ export interface UserSelector {
     players: number;
   };
 }
-import { updatePlayers } from "@/app/slice/userSlice";
 
 const PlayersCount = () => {
   const players = useSelector((state: UserSelector) => state.user.players);

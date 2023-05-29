@@ -2,7 +2,7 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
-import { updateUser } from "@/app/slice/userSlice";
+import { updateRound, updateUser } from "@/app/slice/userSlice";
 import { updateActiveDat } from "@/app/slice/userSlice";
 import { User } from "../joinSimulation/JoinSimulationBtn";
 import { updatePlayers } from "@/app/slice/userSlice";
@@ -46,6 +46,12 @@ const CreateSimulationBtn = ({ simulationData }: CreateSimulationBtnType) => {
     dispatch(
       updatePlayers({
         activePlayers: user.howManyPlayers,
+      })
+    );
+
+    dispatch(
+      updateRound({
+        round: user.activeDay.round,
       })
     );
 

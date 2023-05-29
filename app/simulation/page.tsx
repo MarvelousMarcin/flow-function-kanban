@@ -8,7 +8,11 @@ import { useEffect, useRef } from "react";
 const queryClient = new QueryClient();
 import { Toaster, toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
-import { updateActiveDat, updatePlayers } from "@/app/slice/userSlice";
+import {
+  updateActiveDat,
+  updatePlayers,
+  updateRound,
+} from "@/app/slice/userSlice";
 
 export default function Simulation() {
   const dispatch = useDispatch();
@@ -33,6 +37,15 @@ export default function Simulation() {
           })
         );
         toast.success("New user joined");
+      });
+
+      socket.on("newStage", (arg) => {
+        dispatch(
+          updateRound({
+            round: arg.newStage,
+          })
+        );
+        toast.success("New stage");
       });
     }
   }, []);
