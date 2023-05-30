@@ -6,6 +6,7 @@ import { updateRound, updateUser } from "@/app/slice/userSlice";
 import { updateActiveDat } from "@/app/slice/userSlice";
 import { User } from "../joinSimulation/JoinSimulationBtn";
 import { updatePlayers } from "@/app/slice/userSlice";
+import { LegacyRef, RefObject } from "react";
 
 type CreateSimulationBtnType = {
   simulationData: {

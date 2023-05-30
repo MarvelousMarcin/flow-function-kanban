@@ -11,6 +11,7 @@ const JoinSimulationForm = () => {
         <section className="flex flex-col">
           <label className="font-bold text-[#42486A] text-xl">Name:</label>
           <input
+            autoFocus={true}
             onChange={(e) =>
               setUser((prevUser) => {
                 return { ...prevUser, name: e.target.value };

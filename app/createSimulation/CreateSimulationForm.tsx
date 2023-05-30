@@ -1,6 +1,7 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CreateSimulationBtn from "./CreateSimulationBtn";
+import { createRef } from "react";
 const CreateSimulationForm = () => {
   const [simulationData, setSimulationData] = useState({
     name: "",
@@ -13,6 +14,7 @@ const CreateSimulationForm = () => {
         <section className="flex flex-col">
           <label className="font-bold text-[#42486A] text-xl">Name:</label>
           <input
+            autoFocus={true}
             className="border-[4px] text-xl py-3 px-4 border-orang outline-none rounded-lg mb-5 text-[#42486A] font-bold"
             onChange={(e) =>
               setSimulationData((simul) => {
