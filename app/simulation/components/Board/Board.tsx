@@ -43,9 +43,11 @@ type BoardType = {
   setUserMove: ({ isMove, card }: setUserMoveType) => void;
 };
 
-const Board = ({ name, items, user, setUserMove }: BoardType) => {
+const Board = ({ name, items, user }: BoardType) => {
   const isMyBoard = name === user.table;
   const userMove = useSelector((state: UserSelector) => state.user.move);
+  const round = useSelector((state: UserSelector) => state.user.round);
+
   const dispatch = useDispatch();
 
   const handleDrawCard = async () => {
@@ -68,7 +70,12 @@ const Board = ({ name, items, user, setUserMove }: BoardType) => {
     >
       {isMyBoard && <p className="text-orang">your table</p>}
       <section className="flex flex-row justify-center items-center mb-10 w-5/6 relative">
-        <h1 className="text-3xl font-bold ">{name}</h1>
+        <section className="text-center">
+          <h1 className="text-3xl font-bold ">{name}</h1>
+          {round >= 2 && isMyBoard && (
+            <p className="text-main font-bold">WIP 3</p>
+          )}
+        </section>
         {isMyBoard && !userMove.isMove && (
           <motion.button
             whileHover={{ scale: 1.05 }}
@@ -132,6 +139,7 @@ const Board = ({ name, items, user, setUserMove }: BoardType) => {
                         ? 3
                         : 4
                     }
+                    tableName={name}
                     owner={item.owner}
                   />
                 ))}

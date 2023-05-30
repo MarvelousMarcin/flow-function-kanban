@@ -8,6 +8,7 @@ import { UserSelector } from "./Header";
 import { motion } from "framer-motion";
 import { updateUserMove } from "@/app/slice/userSlice";
 import { toast } from "react-hot-toast";
+import { intialStateType } from "@/app/slice/workItemsSlice";
 
 type WorkItemType = {
   start: number;
@@ -24,6 +25,7 @@ type WorkItemType = {
   stage: number;
   id: string;
   column: { name: string; stage: number };
+  tableName: "Development" | "Design" | "Release" | "Strategic Value";
 };
 
 const WorkItem = ({
@@ -35,14 +37,35 @@ const WorkItem = ({
   blocker,
   stage,
   column,
+  tableName,
 }: WorkItemType) => {
   const queryClient = useQueryClient();
   const userId = useSelector((state: UserSelector) => state.user.id);
   const userMove = useSelector((state: UserSelector) => state.user.move);
   const round = useSelector((state: UserSelector) => state.user.round);
   const dispatch = useDispatch();
+  const workItemsAll = useSelector((state: intialStateType) => state.workItems);
 
   const clickItemHandler = async () => {
+    if (
+      stage &&
+      userMove.isMove &&
+      round >= 2 &&
+      userMove.card === "green" &&
+      column.stage === 1
+    ) {
+      const myTableWI = workItemsAll.workItems[tableName];
+      const howManyWIP = myTableWI?.filter(
+        (wi) => wi.stage > 1 && wi.stage < 4
+      ).length;
+      console.log(howManyWIP);
+      if (howManyWIP && howManyWIP >= 3) {
+        toast.dismiss();
+        toast.error("Too many items in progress!! Maximum WIP is 3");
+        return;
+      }
+    }
+
     if (userMove.isMove && userMove.card === "green" && column.stage !== 4) {
       if (owner && round === 1 && userId !== owner.id) {
         toast.dismiss();
@@ -86,6 +109,7 @@ const WorkItem = ({
   return (
     <motion.div
       onClick={clickItemHandler}
+      whileHover={{ backgroundColor: "#28ccde" }}
       style={{ cursor: userMove.isMove ? "pointer" : "default" }}
       className="bg-main rounded-3xl w-[90%] text-white flex flex-col py-4 justify-normal items-center p-1 gap-2"
     >

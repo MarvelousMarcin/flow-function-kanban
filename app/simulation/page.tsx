@@ -55,7 +55,7 @@ export default function Simulation() {
             round: arg.newStage,
           })
         );
-        toast.success("New stage");
+        toast.success("New Round");
       });
     }
   }, []);

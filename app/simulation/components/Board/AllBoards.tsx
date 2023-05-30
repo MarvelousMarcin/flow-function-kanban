@@ -3,8 +3,9 @@ import Board from "./Board";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { UserSelector } from "../Header";
+import { updateWorkItems } from "@/app/slice/workItemsSlice";
 
 const AllBoards = () => {
   const [userMove, setUserMove] = useState({ isMove: false, card: "" });
@@ -13,6 +14,7 @@ const AllBoards = () => {
   const desRef = useRef<HTMLDivElement | null>(null);
   const devRef = useRef<HTMLDivElement | null>(null);
   const relRef = useRef<HTMLDivElement | null>(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setTimeout(() => {
@@ -43,12 +45,16 @@ const AllBoards = () => {
   const { isLoading, isError, data, error } = useQuery({
     queryKey: ["workItems"],
     queryFn: fetchWorkItem,
+    onSuccess: (data) => {
+      dispatch(updateWorkItems({ workItems: data?.data }));
+    },
     refetchOnWindowFocus: false,
   });
   if (isLoading) {
     return <div></div>;
   }
   const workItemsData = data?.data;
+
   return (
     <>
       <div ref={strRef}></div>
