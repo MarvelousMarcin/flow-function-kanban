@@ -7,11 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { UserSelector } from "./Header";
 import { motion } from "framer-motion";
 import { updateUserMove } from "@/app/slice/userSlice";
-
-type setUserMoveType = {
-  isMove: boolean;
-  card: string;
-};
+import { toast } from "react-hot-toast";
 
 type WorkItemType = {
   start: number;
@@ -43,30 +39,46 @@ const WorkItem = ({
   const queryClient = useQueryClient();
   const userId = useSelector((state: UserSelector) => state.user.id);
   const userMove = useSelector((state: UserSelector) => state.user.move);
+  const round = useSelector((state: UserSelector) => state.user.round);
   const dispatch = useDispatch();
 
   const clickItemHandler = async () => {
     if (userMove.isMove && userMove.card === "green" && column.stage !== 4) {
+      if (owner && round === 1 && userId !== owner.id) {
+        toast.dismiss();
+        toast.error("You can't touch other players tasks in this round!");
+        return;
+      }
       dispatch(updateUserMove({ card: "waiting", isMove: true }));
-
       await axios.post("http://localhost:8000/moveWorkItem", {
         workItemId: id,
         userId,
       });
-
       queryClient.invalidateQueries({ queryKey: ["workItems"] });
-    } else if (
-      userMove.isMove &&
-      userMove.card === "red" &&
-      column.stage !== 1 &&
-      column.stage !== 4
-    ) {
+    } else if (userMove.isMove && userMove.card === "red") {
+      if (column.stage === 1) {
+        toast.dismiss();
+        toast.error("You cannot block item in backlog");
+        return;
+      }
+      if (column.stage === 4) {
+        toast.dismiss();
+        toast.error("You cannot block item that is already done");
+        return;
+      }
+
+      if (owner && round === 1 && userId !== owner.id) {
+        toast.dismiss();
+        toast.error("You can't touch other players tasks in this round!");
+        return;
+      }
       dispatch(updateUserMove({ card: "waiting", isMove: true }));
 
       await axios.post("http://localhost:8000/blockWorkItem", {
         workItemId: id,
         userId,
       });
+
       queryClient.invalidateQueries({ queryKey: ["workItems"] });
     }
   };

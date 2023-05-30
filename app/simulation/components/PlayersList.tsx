@@ -1,7 +1,5 @@
 "use client";
-import { useState } from "react";
 import { motion } from "framer-motion";
-import socket from "@/app/socket";
 import { useSelector } from "react-redux";
 import { UserSelector } from "./Header";
 const PlayersList = ({

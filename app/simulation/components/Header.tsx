@@ -12,6 +12,7 @@ export interface UserSelector {
     activeDay: number;
     players: { color: string; name: string; id: string }[];
     move: { isMove: boolean; card: string };
+    round: number;
   };
 }
 
