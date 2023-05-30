@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { updateRound, updateUser } from "@/app/slice/userSlice";
 import { updateActiveDat } from "@/app/slice/userSlice";
 import { updatePlayers } from "@/app/slice/userSlice";
+import { updateWorkItems } from "../slice/workItemsSlice";
 
 type JoinSimulationBtnType = {
   userData: {
@@ -65,6 +66,12 @@ const JoinSimulationBtn = ({ userData }: JoinSimulationBtnType) => {
         round: user.activeDay.round,
       })
     );
+
+    const workItems = await axios.post("http://localhost:8000/getWorkItems", {
+      gameCode: user.gameKey,
+    });
+
+    dispatch(updateWorkItems({ workItems: workItems.data }));
 
     router.push(`/simulation`);
   };

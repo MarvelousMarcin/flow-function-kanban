@@ -15,6 +15,7 @@ import {
   updateRound,
   updateUserMove,
 } from "@/app/slice/userSlice";
+import { updateWorkItems } from "../slice/workItemsSlice";
 
 export default function Simulation() {
   const dispatch = useDispatch();
@@ -39,8 +40,11 @@ export default function Simulation() {
         toast.success("New Day");
       });
 
+      socket.on("rerenderWorkItems", (arg) => {
+        dispatch(updateWorkItems(arg));
+      });
+
       socket.on("userJoined", (arg) => {
-        console.log(arg);
         dispatch(
           updatePlayers({
             activePlayers: arg.players,

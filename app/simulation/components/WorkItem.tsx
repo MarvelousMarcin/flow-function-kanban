@@ -77,7 +77,6 @@ const WorkItem = ({
         workItemId: id,
         userId,
       });
-      queryClient.invalidateQueries({ queryKey: ["workItems"] });
     } else if (userMove.isMove && userMove.card === "red") {
       if (column.stage === 1) {
         toast.dismiss();
@@ -101,8 +100,6 @@ const WorkItem = ({
         workItemId: id,
         userId,
       });
-
-      queryClient.invalidateQueries({ queryKey: ["workItems"] });
     }
   };
 

@@ -7,6 +7,7 @@ import { updateActiveDat } from "@/app/slice/userSlice";
 import { User } from "../joinSimulation/JoinSimulationBtn";
 import { updatePlayers } from "@/app/slice/userSlice";
 import { LegacyRef, RefObject } from "react";
+import { updateWorkItems } from "../slice/workItemsSlice";
 
 type CreateSimulationBtnType = {
   simulationData: {
@@ -54,6 +55,12 @@ const CreateSimulationBtn = ({ simulationData }: CreateSimulationBtnType) => {
         round: user.activeDay.round,
       })
     );
+
+    const workItems = await axios.post("http://localhost:8000/getWorkItems", {
+      gameCode: user.gameKey,
+    });
+
+    dispatch(updateWorkItems({ workItems: workItems.data }));
 
     router.push(`/simulation`);
   };

@@ -2,15 +2,22 @@
 
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-type WorkItem = {
+export type WorkItem = {
+  stage: number;
   id: string;
   blocker: number;
   game_id: string;
-  lead_time: number;
-  stage: number;
-  table: string;
-  ownserId: string;
+  start: number;
   end: number;
+  lead_time: number;
+  owner: {
+    name: string;
+    color: string;
+    table: string;
+    id: string;
+    gameKey: string;
+  };
+  table: string;
 };
 
 export type intialStateType = {
@@ -33,6 +40,7 @@ export const workItemsReducer = createSlice({
   initialState,
   reducers: {
     updateWorkItems: (state, action: PayloadAction<intialStateType>) => {
+      console.log(action);
       state.workItems = action.payload.workItems;
     },
   },

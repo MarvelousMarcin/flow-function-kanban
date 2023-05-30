@@ -1,20 +1,20 @@
 "use client";
 import Board from "./Board";
-import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { UserSelector } from "../Header";
-import { updateWorkItems } from "@/app/slice/workItemsSlice";
+import { intialStateType } from "@/app/slice/workItemsSlice";
+import { WorkItem } from "@/app/slice/workItemsSlice";
 
 const AllBoards = () => {
   const [userMove, setUserMove] = useState({ isMove: false, card: "" });
   const user = useSelector((state: UserSelector) => state.user);
+  const workItems = useSelector((state: intialStateType) => state.workItems);
+
   const strRef = useRef<HTMLDivElement | null>(null);
   const desRef = useRef<HTMLDivElement | null>(null);
   const devRef = useRef<HTMLDivElement | null>(null);
   const relRef = useRef<HTMLDivElement | null>(null);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     setTimeout(() => {
@@ -35,25 +35,6 @@ const AllBoards = () => {
       });
     }, 800);
   }, []);
-  const fetchWorkItem = async () => {
-    const workItems = await axios.post("http://localhost:8000/getWorkItems", {
-      gameCode: user.gameKey,
-    });
-    return workItems;
-  };
-
-  const { isLoading, isError, data, error } = useQuery({
-    queryKey: ["workItems"],
-    queryFn: fetchWorkItem,
-    onSuccess: (data) => {
-      dispatch(updateWorkItems({ workItems: data?.data }));
-    },
-    refetchOnWindowFocus: false,
-  });
-  if (isLoading) {
-    return <div></div>;
-  }
-  const workItemsData = data?.data;
 
   return (
     <>
@@ -61,7 +42,7 @@ const AllBoards = () => {
       <Board
         name="Strategic Value"
         isFirst={true}
-        items={workItemsData["Strategic Value"]}
+        items={workItems.workItems["Strategic Value"] as WorkItem[]}
         user={user}
         setUserMove={setUserMove}
       />
@@ -69,7 +50,7 @@ const AllBoards = () => {
       <Board
         name="Design"
         isFirst={false}
-        items={workItemsData["Design"]}
+        items={workItems.workItems["Design"] as WorkItem[]}
         user={user}
         setUserMove={setUserMove}
       />
@@ -77,7 +58,7 @@ const AllBoards = () => {
       <Board
         name="Development"
         isFirst={false}
-        items={workItemsData["Development"]}
+        items={workItems.workItems["Development"] as WorkItem[]}
         user={user}
         setUserMove={setUserMove}
       />
@@ -85,7 +66,7 @@ const AllBoards = () => {
       <Board
         name="Release"
         isFirst={false}
-        items={workItemsData["Release"]}
+        items={workItems.workItems["Release"] as WorkItem[]}
         user={user}
         setUserMove={setUserMove}
       />
