@@ -10,7 +10,7 @@ export interface UserState {
   table: string;
   gameKey: string;
   activeDay: number;
-  players: number;
+  players: [];
   round: number;
   move: { isMove: boolean; card: string };
 }
@@ -22,7 +22,7 @@ const initialState: UserState = {
   table: "",
   gameKey: "",
   activeDay: 1,
-  players: 0,
+  players: [],
   round: 1,
   move: { isMove: false, card: "" },
 };
@@ -39,7 +39,7 @@ interface ActiveDayPayload {
   activeDay: number;
 }
 interface ActivePlayers {
-  activePlayers: number;
+  activePlayers: [];
 }
 
 interface RoundSetPayload {

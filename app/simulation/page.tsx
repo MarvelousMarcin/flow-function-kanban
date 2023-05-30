@@ -4,10 +4,11 @@ import Header from "./components/Header";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import socket from "../socket";
 import AllBoards from "./components/Board/AllBoards";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 const queryClient = new QueryClient();
 import { Toaster, toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
+import PlayersList from "./components/PlayersList";
 import {
   updateActiveDat,
   updatePlayers,
@@ -18,6 +19,7 @@ import {
 export default function Simulation() {
   const dispatch = useDispatch();
   const didLogRef = useRef(false);
+  const [playersListVisible, setPlayersListVisible] = useState(false);
   useEffect(() => {
     if (didLogRef.current === false) {
       socket.connect();
@@ -38,9 +40,10 @@ export default function Simulation() {
       });
 
       socket.on("userJoined", (arg) => {
+        console.log(arg);
         dispatch(
           updatePlayers({
-            activePlayers: arg.howManyPlayers,
+            activePlayers: arg.players,
           })
         );
         toast.success("New user joined");
@@ -58,8 +61,9 @@ export default function Simulation() {
   }, []);
   return (
     <main>
-      <Header />
+      <Header setPlayersListVisible={setPlayersListVisible} />
       <QueryClientProvider client={queryClient}>
+        <PlayersList playersListVisible={playersListVisible} />
         <AllBoards />
         <Toaster />
       </QueryClientProvider>

@@ -46,7 +46,6 @@ type BoardType = {
 const Board = ({ name, items, user, setUserMove }: BoardType) => {
   const isMyBoard = name === user.table;
   const userMove = useSelector((state: UserSelector) => state.user.move);
-  console.log(userMove);
   const dispatch = useDispatch();
 
   const handleDrawCard = async () => {

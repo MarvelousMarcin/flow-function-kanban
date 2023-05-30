@@ -10,12 +10,16 @@ export interface UserSelector {
     table: string;
     gameKey: string;
     activeDay: number;
-    players: number;
+    players: { color: string; name: string; id: string }[];
     move: { isMove: boolean; card: string };
   };
 }
 
-const Header = () => {
+const Header = ({
+  setPlayersListVisible,
+}: {
+  setPlayersListVisible: (f: (v: boolean) => boolean) => void;
+}) => {
   const color = useSelector((state: UserSelector) => state.user.color);
   const gameKey = useSelector((state: UserSelector) => state.user.gameKey);
 
@@ -35,7 +39,7 @@ const Header = () => {
               className="w-[20px] h-[20px] rounded-full bg-slate-950"
             ></div>
           </div>
-          <PlayersCount />
+          <PlayersCount setPlayersListVisible={setPlayersListVisible} />
         </section>
       </header>
     </>

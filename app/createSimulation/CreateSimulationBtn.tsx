@@ -20,7 +20,6 @@ const CreateSimulationBtn = ({ simulationData }: CreateSimulationBtnType) => {
   const handleCreateSimulation = async () => {
     const result = await axios.get("http://localhost:8000/initSimulation");
     const gameKey = result.data.gameCode;
-    console.log(simulationData.name, gameKey);
     const getUser = await axios.post("http://localhost:8000/joinSimulation", {
       name: simulationData.name,
       gameKey,
@@ -45,7 +44,7 @@ const CreateSimulationBtn = ({ simulationData }: CreateSimulationBtnType) => {
 
     dispatch(
       updatePlayers({
-        activePlayers: user.howManyPlayers,
+        activePlayers: user.players,
       })
     );
 

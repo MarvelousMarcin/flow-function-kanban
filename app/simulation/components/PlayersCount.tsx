@@ -1,8 +1,6 @@
 "use client";
-import { useEffect, useState } from "react";
-import socket from "../../socket";
-import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-hot-toast";
+
+import { useSelector } from "react-redux";
 
 export interface UserSelector {
   user: {
@@ -12,16 +10,25 @@ export interface UserSelector {
     table: string;
     gameKey: string;
     activeDay: number;
-    players: number;
+    players: [];
   };
 }
 
-const PlayersCount = () => {
+const PlayersCount = ({
+  setPlayersListVisible,
+}: {
+  setPlayersListVisible: (f: (v: boolean) => boolean) => void;
+}) => {
   const players = useSelector((state: UserSelector) => state.user.players);
 
   return (
-    <div className="font-bold">
-      Players: <span className="text-orang">{players}/12</span>
+    <div
+      className="font-bold cursor-pointer"
+      onClick={() => {
+        setPlayersListVisible((prev) => !prev);
+      }}
+    >
+      Players: <span className="text-orang">{players?.length}/12</span>
     </div>
   );
 };

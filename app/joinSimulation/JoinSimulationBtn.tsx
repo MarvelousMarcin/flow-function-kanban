@@ -25,7 +25,7 @@ export interface User {
     day: number;
     round: number;
   };
-  howManyPlayers: number;
+  players: [];
 }
 
 const JoinSimulationBtn = ({ userData }: JoinSimulationBtnType) => {
@@ -56,7 +56,7 @@ const JoinSimulationBtn = ({ userData }: JoinSimulationBtnType) => {
 
     dispatch(
       updatePlayers({
-        activePlayers: user.howManyPlayers,
+        activePlayers: user.players,
       })
     );
 
