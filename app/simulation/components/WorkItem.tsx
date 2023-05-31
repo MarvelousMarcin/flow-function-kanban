@@ -44,6 +44,10 @@ const WorkItem = ({
   const dispatch = useDispatch();
   const workItemsAll = useSelector((state: intialStateType) => state.workItems);
   const clickItemHandler = async () => {
+    const myTableWI = workItemsAll.workItems[tableName];
+    const howManyWIP = myTableWI?.filter((wi) => wi.stage > 1 && wi.stage < 4)
+      .length as number;
+
     if (
       stage &&
       userMove.isMove &&
@@ -51,10 +55,6 @@ const WorkItem = ({
       userMove.card === "green" &&
       column.stage === 1
     ) {
-      const myTableWI = workItemsAll.workItems[tableName];
-      const howManyWIP = myTableWI?.filter(
-        (wi) => wi.stage > 1 && wi.stage < 4
-      ).length;
       if (howManyWIP && howManyWIP >= 3) {
         toast.dismiss();
         toast.error("Too many items in progress!! Maximum WIP is 3");
