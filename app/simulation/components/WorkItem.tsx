@@ -2,14 +2,13 @@
 
 import axios from "axios";
 import Dot from "./Dot";
-import { useQueryClient } from "@tanstack/react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { UserSelector } from "./Header";
 import { motion } from "framer-motion";
 import { updateUserMove } from "@/app/slice/userSlice";
 import { toast } from "react-hot-toast";
 import { intialStateType } from "@/app/slice/workItemsSlice";
-
+import socket from "@/app/socket";
 type WorkItemType = {
   start: number;
   end: number;
@@ -39,13 +38,11 @@ const WorkItem = ({
   column,
   tableName,
 }: WorkItemType) => {
-  const queryClient = useQueryClient();
   const userId = useSelector((state: UserSelector) => state.user.id);
   const userMove = useSelector((state: UserSelector) => state.user.move);
   const round = useSelector((state: UserSelector) => state.user.round);
   const dispatch = useDispatch();
   const workItemsAll = useSelector((state: intialStateType) => state.workItems);
-
   const clickItemHandler = async () => {
     if (
       stage &&
@@ -58,7 +55,6 @@ const WorkItem = ({
       const howManyWIP = myTableWI?.filter(
         (wi) => wi.stage > 1 && wi.stage < 4
       ).length;
-      console.log(howManyWIP);
       if (howManyWIP && howManyWIP >= 3) {
         toast.dismiss();
         toast.error("Too many items in progress!! Maximum WIP is 3");
@@ -73,6 +69,7 @@ const WorkItem = ({
         return;
       }
       dispatch(updateUserMove({ card: "waiting", isMove: true }));
+
       await axios.post("http://localhost:8000/moveWorkItem", {
         workItemId: id,
         userId,
@@ -105,6 +102,7 @@ const WorkItem = ({
 
   return (
     <motion.div
+      key={id}
       onClick={clickItemHandler}
       whileHover={{ backgroundColor: "#28ccde" }}
       style={{ cursor: userMove.isMove ? "pointer" : "default" }}

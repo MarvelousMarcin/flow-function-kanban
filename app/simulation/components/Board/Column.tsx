@@ -1,6 +1,7 @@
 type ColumnType = {
   columnName: string;
   children: React.ReactNode;
+  key: string;
 };
 
 const Column = ({ columnName, children }: ColumnType) => {

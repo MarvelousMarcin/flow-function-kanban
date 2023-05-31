@@ -31,6 +31,12 @@ export type intialStateType = {
   };
 };
 
+export type moveItemType = {
+  itemId: string;
+  move: string;
+  table: "Development" | "Strategic Value" | "Design" | "Release";
+};
+
 const initialState: intialStateType = {
   workItems: { workItems: {} },
 };
@@ -40,7 +46,6 @@ export const workItemsReducer = createSlice({
   initialState,
   reducers: {
     updateWorkItems: (state, action: PayloadAction<intialStateType>) => {
-      console.log(action);
       state.workItems = action.payload.workItems;
     },
   },

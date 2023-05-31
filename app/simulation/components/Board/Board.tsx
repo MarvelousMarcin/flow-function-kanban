@@ -117,34 +117,32 @@ const Board = ({ name, items, user }: BoardType) => {
       </section>
       <section className="flex flex-row w-5/6  justify-evenly">
         {tables[name].columns.map((column) => (
-          <>
-            <Column key={column.name} columnName={column.name}>
-              {items
-                ?.filter((item) => item.stage === column.stage)
-                .map((item) => (
-                  <WorkItem
-                    start={item.start}
-                    end={item.end}
-                    key={Math.random()}
-                    id={item.id}
-                    leadTime={item.lead_time}
-                    blocker={item.blocker}
-                    column={column}
-                    stage={
-                      name === "Strategic Value"
-                        ? 1
-                        : name === "Design"
-                        ? 2
-                        : name === "Development"
-                        ? 3
-                        : 4
-                    }
-                    tableName={name}
-                    owner={item.owner}
-                  />
-                ))}
-            </Column>
-          </>
+          <Column key={column.name} columnName={column.name}>
+            {items
+              ?.filter((item) => item.stage === column.stage)
+              .map((item) => (
+                <WorkItem
+                  start={item.start}
+                  end={item.end}
+                  key={item.id}
+                  id={item.id}
+                  leadTime={item.lead_time}
+                  blocker={item.blocker}
+                  column={column}
+                  stage={
+                    name === "Strategic Value"
+                      ? 1
+                      : name === "Design"
+                      ? 2
+                      : name === "Development"
+                      ? 3
+                      : 4
+                  }
+                  tableName={name}
+                  owner={item.owner}
+                />
+              ))}
+          </Column>
         ))}
       </section>
     </main>
