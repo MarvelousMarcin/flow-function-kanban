@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import PlayersCount from "./PlayersCount";
 import DaysCounter from "./DaysCounter";
 import Rounds from "./Rounds";
+import LeadTime from "./LeadTime";
 export interface UserSelector {
   user: {
     name: string;
@@ -37,6 +38,7 @@ const Header = ({
           Room code: <span className="text-orang">{gameKey}</span>
         </div>
         <section className="flex flex-row gap-11">
+          <LeadTime />
           <Rounds />
           <DaysCounter />
           <div className="font-bold flex flex-row justify-center items-center gap-4">
