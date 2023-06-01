@@ -40,10 +40,11 @@ type BoardType = {
     color: string;
     table: string;
   };
+  speed: number;
   setUserMove: ({ isMove, card }: setUserMoveType) => void;
 };
 
-const Board = ({ name, items, user }: BoardType) => {
+const Board = ({ name, items, user, speed }: BoardType) => {
   const isMyBoard = name === user.table;
   const userMove = useSelector((state: UserSelector) => state.user.move);
   const round = useSelector((state: UserSelector) => state.user.round);
@@ -76,13 +77,16 @@ const Board = ({ name, items, user }: BoardType) => {
             <p className="text-main font-bold">WIP 3</p>
           )}
         </section>
+        <article className="absolute left-3 font-bold p-3 rounded-lg  border-[4px] border-main">
+          Speed: {speed}
+        </article>
         {isMyBoard && !userMove.isMove && (
           <motion.button
             whileHover={{ scale: 1.05 }}
             onClick={handleDrawCard}
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
-            className="absolute right-0 bg-orang font-bold p-3 rounded-lg"
+            className="absolute right-3 bg-orang font-bold p-3 rounded-lg"
           >
             Draw Card
           </motion.button>

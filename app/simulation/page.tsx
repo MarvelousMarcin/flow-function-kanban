@@ -13,6 +13,7 @@ import {
   updateActiveDat,
   updatePlayers,
   updateRound,
+  updateSpeed,
   updateUserMove,
 } from "@/app/slice/userSlice";
 import { updateWorkItems } from "../slice/workItemsSlice";
@@ -61,6 +62,25 @@ export default function Simulation() {
         );
         toast.success("New Round");
       });
+
+      socket.on(
+        "capacityUpdate",
+        (arg: {
+          doneDev: number;
+          doneDes: number;
+          doneStra: number;
+          day: number;
+        }) => {
+          const speed = {
+            Development: Number((arg.doneDev / arg.day).toFixed(2)),
+            Design: Number((arg.doneDes / arg.day).toFixed(2)),
+            "Strategic Value": Number((arg.doneDev / arg.day).toFixed(2)),
+            Release: 0,
+          };
+          console.log(speed);
+          dispatch(updateSpeed({ speed }));
+        }
+      );
     }
   }, []);
   return (

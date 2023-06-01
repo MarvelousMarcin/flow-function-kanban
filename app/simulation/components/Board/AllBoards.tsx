@@ -10,6 +10,7 @@ const AllBoards = () => {
   const [userMove, setUserMove] = useState({ isMove: false, card: "" });
   const user = useSelector((state: UserSelector) => state.user);
   const workItems = useSelector((state: intialStateType) => state.workItems);
+  const speed = useSelector((state: UserSelector) => state.user.speed);
 
   const strRef = useRef<HTMLDivElement | null>(null);
   const desRef = useRef<HTMLDivElement | null>(null);
@@ -45,6 +46,7 @@ const AllBoards = () => {
         items={workItems.workItems["Strategic Value"] as WorkItem[]}
         user={user}
         setUserMove={setUserMove}
+        speed={speed["Strategic Value"]}
       />
       <div ref={desRef}></div>
       <Board
@@ -53,6 +55,7 @@ const AllBoards = () => {
         items={workItems.workItems["Design"] as WorkItem[]}
         user={user}
         setUserMove={setUserMove}
+        speed={speed.Design}
       />
       <div ref={devRef}></div>
       <Board
@@ -61,6 +64,7 @@ const AllBoards = () => {
         items={workItems.workItems["Development"] as WorkItem[]}
         user={user}
         setUserMove={setUserMove}
+        speed={speed.Development}
       />
       <div ref={relRef}></div>
       <Board
@@ -69,6 +73,7 @@ const AllBoards = () => {
         items={workItems.workItems["Release"] as WorkItem[]}
         user={user}
         setUserMove={setUserMove}
+        speed={speed.Release}
       />
     </>
   );

@@ -2,7 +2,7 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
-import { updateRound, updateUser } from "@/app/slice/userSlice";
+import { updateRound, updateSpeed, updateUser } from "@/app/slice/userSlice";
 import { updateActiveDat } from "@/app/slice/userSlice";
 import { updatePlayers } from "@/app/slice/userSlice";
 import { updateWorkItems } from "../slice/workItemsSlice";
@@ -25,6 +25,9 @@ export interface User {
     code: string;
     day: number;
     round: number;
+    doneDev: number;
+    doneDes: number;
+    doneStra: number;
   };
   players: [];
 }
@@ -66,6 +69,19 @@ const JoinSimulationBtn = ({ userData }: JoinSimulationBtnType) => {
         round: user.activeDay.round,
       })
     );
+
+    const speed = {
+      Development: Number(
+        (user.activeDay.doneDev / user.activeDay.day).toFixed(2)
+      ),
+      Design: Number((user.activeDay.doneDes / user.activeDay.day).toFixed(2)),
+      "Strategic Value": Number(
+        (user.activeDay.doneDev / user.activeDay.day).toFixed(2)
+      ),
+      Release: 0,
+    };
+
+    dispatch(updateSpeed({ speed }));
 
     const workItems = await axios.post("http://localhost:8000/getWorkItems", {
       gameCode: user.gameKey,

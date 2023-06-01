@@ -13,6 +13,12 @@ export interface UserSelector {
     players: { color: string; name: string; id: string }[];
     move: { isMove: boolean; card: string };
     round: number;
+    speed: {
+      Development: number;
+      Design: number;
+      "Strategic Value": number;
+      Release: number;
+    };
   };
 }
 

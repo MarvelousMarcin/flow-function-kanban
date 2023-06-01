@@ -13,6 +13,12 @@ export interface UserState {
   players: [];
   round: number;
   move: { isMove: boolean; card: string };
+  speed: {
+    Development: number;
+    Design: number;
+    "Strategic Value": number;
+    Release: number;
+  };
 }
 
 const initialState: UserState = {
@@ -25,6 +31,7 @@ const initialState: UserState = {
   players: [],
   round: 1,
   move: { isMove: false, card: "" },
+  speed: { Development: 0, Design: 0, "Strategic Value": 0, Release: 0 },
 };
 
 interface UserPayload {
@@ -51,6 +58,15 @@ interface UserMovePayload {
   card: string;
 }
 
+interface UpdateSpeed {
+  speed: {
+    Development: number;
+    Design: number;
+    "Strategic Value": number;
+    Release: number;
+  };
+}
+
 export const userReducer = createSlice({
   name: "user",
   initialState,
@@ -75,6 +91,9 @@ export const userReducer = createSlice({
       state.move.card = action?.payload.card;
       state.move.isMove = action?.payload.isMove;
     },
+    updateSpeed: (state, action: PayloadAction<UpdateSpeed>) => {
+      state.speed = action?.payload?.speed;
+    },
   },
 });
 
@@ -85,6 +104,7 @@ export const {
   updatePlayers,
   updateRound,
   updateUserMove,
+  updateSpeed,
 } = userReducer.actions;
 
 export default userReducer.reducer;
