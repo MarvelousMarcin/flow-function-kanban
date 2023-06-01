@@ -1,6 +1,6 @@
-import { io, Socket } from "socket.io-client";
+import { io } from "socket.io-client";
 
 // please note that the types are reversed
-const socket = io("http://localhost:8000");
+const socket = io(`${process.env.NEXT_PUBLIC_URL}`);
 
 export default socket;

@@ -52,9 +52,12 @@ const Board = ({ name, items, user, speed }: BoardType) => {
   const dispatch = useDispatch();
 
   const handleDrawCard = async () => {
-    const whatCard = await axios.post("http://localhost:8000/drawCard", {
-      data: { userId: "DQREYO" },
-    });
+    const whatCard = await axios.post(
+      `${process.env.NEXT_PUBLIC_URL}/drawCard`,
+      {
+        data: { userId: "DQREYO" },
+      }
+    );
 
     const card = whatCard.data.card;
 

@@ -37,10 +37,13 @@ const JoinSimulationBtn = ({ userData }: JoinSimulationBtnType) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const handleJoinSimulation = async () => {
-    const getUser = await axios.post("http://localhost:8000/joinSimulation", {
-      name: userData.name,
-      gameKey: userData.key,
-    });
+    const getUser = await axios.post(
+      `${process.env.NEXT_PUBLIC_URL}/joinSimulation`,
+      {
+        name: userData.name,
+        gameKey: userData.key,
+      }
+    );
 
     const user = getUser.data as User;
 
@@ -84,9 +87,12 @@ const JoinSimulationBtn = ({ userData }: JoinSimulationBtnType) => {
 
     dispatch(updateSpeed({ speed }));
 
-    const workItems = await axios.post("http://localhost:8000/getWorkItems", {
-      gameCode: user.gameKey,
-    });
+    const workItems = await axios.post(
+      `${process.env.NEXT_PUBLIC_URL}/getWorkItems`,
+      {
+        gameCode: user.gameKey,
+      }
+    );
 
     dispatch(updateWorkItems({ workItems: workItems.data }));
 

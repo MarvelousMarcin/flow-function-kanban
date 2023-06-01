@@ -1,7 +1,6 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import CreateSimulationBtn from "./CreateSimulationBtn";
-import { createRef } from "react";
 const CreateSimulationForm = () => {
   const [simulationData, setSimulationData] = useState({
     name: "",

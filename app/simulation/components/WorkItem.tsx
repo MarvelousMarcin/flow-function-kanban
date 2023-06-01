@@ -70,7 +70,7 @@ const WorkItem = ({
       }
       dispatch(updateUserMove({ card: "waiting", isMove: true }));
 
-      await axios.post("http://localhost:8000/moveWorkItem", {
+      await axios.post(`${process.env.NEXT_PUBLIC_URL}/moveWorkItem`, {
         workItemId: id,
         userId,
       });
@@ -86,6 +86,12 @@ const WorkItem = ({
         return;
       }
 
+      if (blocker >= 3) {
+        toast.dismiss();
+        toast.error("This item is alredy maxiumim blocked");
+        return;
+      }
+
       if (owner && round === 1 && userId !== owner.id) {
         toast.dismiss();
         toast.error("You can't touch other players tasks in this round!");
@@ -93,7 +99,7 @@ const WorkItem = ({
       }
       dispatch(updateUserMove({ card: "waiting", isMove: true }));
 
-      await axios.post("http://localhost:8000/blockWorkItem", {
+      await axios.post(`${process.env.NEXT_PUBLIC_URL}/blockWorkItem`, {
         workItemId: id,
         userId,
       });

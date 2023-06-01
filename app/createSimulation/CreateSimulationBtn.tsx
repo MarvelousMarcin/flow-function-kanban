@@ -20,12 +20,17 @@ const CreateSimulationBtn = ({ simulationData }: CreateSimulationBtnType) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const handleCreateSimulation = async () => {
-    const result = await axios.get("http://localhost:8000/initSimulation");
+    const result = await axios.get(
+      `${process.env.NEXT_PUBLIC_URL}/initSimulation`
+    );
     const gameKey = result.data.gameCode;
-    const getUser = await axios.post("http://localhost:8000/joinSimulation", {
-      name: simulationData.name,
-      gameKey,
-    });
+    const getUser = await axios.post(
+      `${process.env.NEXT_PUBLIC_URL}/joinSimulation`,
+      {
+        name: simulationData.name,
+        gameKey,
+      }
+    );
 
     const user = getUser.data as User;
 
@@ -56,9 +61,12 @@ const CreateSimulationBtn = ({ simulationData }: CreateSimulationBtnType) => {
       })
     );
 
-    const workItems = await axios.post("http://localhost:8000/getWorkItems", {
-      gameCode: user.gameKey,
-    });
+    const workItems = await axios.post(
+      `${process.env.NEXT_PUBLIC_URL}/getWorkItems`,
+      {
+        gameCode: user.gameKey,
+      }
+    );
 
     dispatch(updateWorkItems({ workItems: workItems.data }));
 
