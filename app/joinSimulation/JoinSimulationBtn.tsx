@@ -28,6 +28,7 @@ export interface User {
     doneDev: number;
     doneDes: number;
     doneStra: number;
+    doneRel: number;
   };
   players: [];
 }
@@ -76,9 +77,9 @@ const JoinSimulationBtn = ({ userData }: JoinSimulationBtnType) => {
       ),
       Design: Number((user.activeDay.doneDes / user.activeDay.day).toFixed(2)),
       "Strategic Value": Number(
-        (user.activeDay.doneDev / user.activeDay.day).toFixed(2)
+        (user.activeDay.doneStra / user.activeDay.day).toFixed(2)
       ),
-      Release: 0,
+      Release: Number((user.activeDay.doneRel / user.activeDay.day).toFixed(2)),
     };
 
     dispatch(updateSpeed({ speed }));

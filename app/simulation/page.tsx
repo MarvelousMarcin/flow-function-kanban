@@ -69,13 +69,14 @@ export default function Simulation() {
           doneDev: number;
           doneDes: number;
           doneStra: number;
+          doneRel: number;
           day: number;
         }) => {
           const speed = {
             Development: Number((arg.doneDev / arg.day).toFixed(2)),
             Design: Number((arg.doneDes / arg.day).toFixed(2)),
-            "Strategic Value": Number((arg.doneDev / arg.day).toFixed(2)),
-            Release: 0,
+            "Strategic Value": Number((arg.doneStra / arg.day).toFixed(2)),
+            Release: Number((arg.doneRel / arg.day).toFixed(2)),
           };
           console.log(speed);
           dispatch(updateSpeed({ speed }));
