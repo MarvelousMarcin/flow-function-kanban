@@ -78,7 +78,6 @@ export default function Simulation() {
             "Strategic Value": Number((arg.doneStra / arg.day).toFixed(2)),
             Release: Number((arg.doneRel / arg.day).toFixed(2)),
           };
-          console.log(speed);
           dispatch(updateSpeed({ speed }));
         }
       );
