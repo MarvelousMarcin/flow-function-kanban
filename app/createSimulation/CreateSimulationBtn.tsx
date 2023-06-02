@@ -8,6 +8,8 @@ import { User } from "../joinSimulation/JoinSimulationBtn";
 import { updatePlayers } from "@/app/slice/userSlice";
 import { updateWorkItems } from "../slice/workItemsSlice";
 import { motion } from "framer-motion";
+import { toast } from "react-hot-toast";
+import { useEffect } from "react";
 
 type CreateSimulationBtnType = {
   simulationData: {
@@ -19,7 +21,14 @@ type CreateSimulationBtnType = {
 const CreateSimulationBtn = ({ simulationData }: CreateSimulationBtnType) => {
   const router = useRouter();
   const dispatch = useDispatch();
+
   const handleCreateSimulation = async () => {
+    if (!simulationData.name) {
+      toast.dismiss();
+      toast.error("Name cannot be empty");
+      return;
+    }
+
     const result = await axios.get(
       `${process.env.NEXT_PUBLIC_URL}/initSimulation`
     );

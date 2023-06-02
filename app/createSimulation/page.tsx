@@ -5,6 +5,8 @@ import Link from "next/link";
 import CreateSimulationForm from "./CreateSimulationForm";
 import backImg from "../assets/left.svg";
 import Image from "next/image";
+import { Toaster } from "react-hot-toast";
+
 export default function CreateSimulation() {
   return (
     <main className="flex flex-col justify-center items-center h-[80vh] w-screen relative">
@@ -31,6 +33,7 @@ export default function CreateSimulation() {
         transition={{ repeat: Infinity, repeatDelay: 0.4, duration: 0.8 }}
         className="bg-[#FFECED] w-[14rem] h-[14rem] rounded-full fixed bottom-20 right-3 z-[-3]"
       ></motion.div>
+      <Toaster />
     </main>
   );
 }

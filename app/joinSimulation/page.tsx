@@ -5,6 +5,7 @@ import JoinSimulationForm from "./JoinSimulationForm";
 import Link from "next/link";
 import backImg from "../assets/left.svg";
 import Image from "next/image";
+import { Toaster } from "react-hot-toast";
 
 export default function JoinSimulation() {
   return (
@@ -31,7 +32,7 @@ export default function JoinSimulation() {
         transition={{ repeat: Infinity, repeatDelay: 0.4, duration: 0.8 }}
         className="bg-[#D9FEE3] w-[14rem] h-[14rem] rounded-full fixed bottom-20 right-3 z-[-3]"
       ></motion.div>
-
+      <Toaster />
       <JoinSimulationForm />
     </main>
   );

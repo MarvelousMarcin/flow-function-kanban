@@ -1,6 +1,6 @@
 "use client";
 import JoinSimulationBtn from "./JoinSimulationBtn";
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 
 const JoinSimulationForm = () => {
@@ -40,9 +40,9 @@ const JoinSimulationForm = () => {
           />
           <JoinSimulationBtn
             onClick={() => {
-              console.log("ener");
               setLoaderWidth("100vw");
             }}
+            setLoaderWidth={setLoaderWidth}
             userData={userData}
           />
         </section>
