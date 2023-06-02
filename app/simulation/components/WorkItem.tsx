@@ -108,8 +108,9 @@ const WorkItem = ({
   return (
     <motion.div
       key={id}
+      whileTap={{ scale: 0.94 }}
       onClick={clickItemHandler}
-      whileHover={{ backgroundColor: "#28ccde" }}
+      whileHover={{ backgroundColor: "#16c8dc" }}
       style={{ cursor: userMove.isMove ? "pointer" : "default" }}
       className="bg-main rounded-3xl w-[90%] text-white flex flex-col py-4 justify-normal items-center p-1 gap-2"
     >
