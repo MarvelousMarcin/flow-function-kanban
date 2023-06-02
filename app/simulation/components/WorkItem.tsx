@@ -61,7 +61,13 @@ const WorkItem = ({
       }
     }
 
-    if (userMove.isMove && userMove.card === "green" && column.stage !== 4) {
+    if (
+      (userMove.isMove && userMove.card === "green" && column.stage !== 4) ||
+      (userMove.isMove &&
+        userMove.card === "red" &&
+        column.stage !== 4 &&
+        howManyWIP >= 3)
+    ) {
       if (owner && round === 1 && userId !== owner.id) {
         toast.dismiss();
         toast.error("You can't touch other players tasks in this round!");

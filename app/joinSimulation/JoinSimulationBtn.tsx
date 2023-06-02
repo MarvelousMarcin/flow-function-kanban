@@ -13,6 +13,7 @@ type JoinSimulationBtnType = {
     name: string;
     key: string;
   };
+  onClick: () => void;
 };
 
 export interface User {
@@ -34,10 +35,12 @@ export interface User {
   players: [];
 }
 
-const JoinSimulationBtn = ({ userData }: JoinSimulationBtnType) => {
+const JoinSimulationBtn = ({ userData, onClick }: JoinSimulationBtnType) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const handleJoinSimulation = async () => {
+    onClick();
+
     const getUser = await axios.post(
       `${process.env.NEXT_PUBLIC_URL}/joinSimulation`,
       {
