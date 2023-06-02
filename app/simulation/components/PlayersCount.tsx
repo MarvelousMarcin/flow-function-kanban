@@ -14,20 +14,11 @@ export interface UserSelector {
   };
 }
 
-const PlayersCount = ({
-  setPlayersListVisible,
-}: {
-  setPlayersListVisible: (f: (v: boolean) => boolean) => void;
-}) => {
+const PlayersCount = () => {
   const players = useSelector((state: UserSelector) => state.user.players);
 
   return (
-    <div
-      className="font-bold cursor-pointer"
-      onClick={() => {
-        setPlayersListVisible((prev) => !prev);
-      }}
-    >
+    <div className="font-bold">
       Players: <span className="text-orang">{players?.length}/12</span>
     </div>
   );

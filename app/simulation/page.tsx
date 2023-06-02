@@ -8,7 +8,8 @@ import { useEffect, useRef, useState } from "react";
 const queryClient = new QueryClient();
 import { Toaster, toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
-import PlayersList from "./components/PlayersList";
+import Menu from "./components/Menu/Menu";
+
 import {
   updateActiveDat,
   updatePlayers,
@@ -19,9 +20,9 @@ import {
 import { updateWorkItems } from "../slice/workItemsSlice";
 
 export default function Simulation() {
+  const [isMenuVisible, setIsMenuVisible] = useState(false);
   const dispatch = useDispatch();
   const didLogRef = useRef(false);
-  const [playersListVisible, setPlayersListVisible] = useState(false);
   useEffect(() => {
     if (didLogRef.current === false) {
       socket.connect();
@@ -85,9 +86,9 @@ export default function Simulation() {
   }, []);
   return (
     <main>
-      <Header setPlayersListVisible={setPlayersListVisible} />
+      <Header setIsMenuVisible={setIsMenuVisible} />
       <QueryClientProvider client={queryClient}>
-        <PlayersList playersListVisible={playersListVisible} />
+        {true && <Menu isMenuVisible={isMenuVisible} />}
         <AllBoards />
         <Toaster />
       </QueryClientProvider>
