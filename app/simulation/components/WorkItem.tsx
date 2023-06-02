@@ -38,6 +38,7 @@ const WorkItem = ({
   tableName,
 }: WorkItemType) => {
   const userId = useSelector((state: UserSelector) => state.user.id);
+  const userTable = useSelector((state: UserSelector) => state.user.table);
   const userMove = useSelector((state: UserSelector) => state.user.move);
   const round = useSelector((state: UserSelector) => state.user.round);
   const dispatch = useDispatch();
@@ -46,6 +47,12 @@ const WorkItem = ({
     const myTableWI = workItemsAll.workItems[tableName];
     const howManyWIP = myTableWI?.filter((wi) => wi.stage > 1 && wi.stage < 4)
       .length as number;
+
+    if (userMove.isMove && userTable !== tableName) {
+      toast.dismiss();
+      toast.error("You can't touch other tables!");
+      return;
+    }
 
     if (
       stage &&
