@@ -14,7 +14,7 @@ const Menu = ({
 
   return (
     <section className="w-[30rem]  rounded-xl h-[30rem] z-50 bg-white bg-opacity-20 backdrop-blur-lg flex justify-start p-8 flex-col items-center  drop-shadow-lg fixed left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]">
-      <h1 className="text-main font-bold text-3xl mb-4">Menu</h1>
+      <h1 className="text-orang font-bold text-3xl mb-4">Menu</h1>
       <div
         className="absolute top-5 right-5"
         onClick={() => setIsMenuVisible(false)}

@@ -39,6 +39,7 @@ export default function Simulation() {
             isMove: false,
           })
         );
+        toast.dismiss();
         toast.success("New Day");
       });
 
