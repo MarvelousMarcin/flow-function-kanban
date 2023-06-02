@@ -30,9 +30,9 @@ const JoinSimulationForm = () => {
             }
             className="border-[4px] text-xl py-3 px-4 border-orang outline-none rounded-lg mb-5 text-[#42486A] font-bold"
           />
+          <JoinSimulationBtn userData={userData} />
         </section>
       </article>
-      <JoinSimulationBtn userData={userData} />
     </>
   );
 };

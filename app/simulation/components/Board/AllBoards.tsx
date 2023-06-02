@@ -39,6 +39,7 @@ const AllBoards = () => {
 
   return (
     <>
+      <div className="h-[10vh] w-full"> </div>
       <div ref={strRef}></div>
       <Board
         name="Strategic Value"

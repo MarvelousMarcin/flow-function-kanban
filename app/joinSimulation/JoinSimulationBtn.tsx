@@ -6,6 +6,7 @@ import { updateRound, updateSpeed, updateUser } from "@/app/slice/userSlice";
 import { updateActiveDat } from "@/app/slice/userSlice";
 import { updatePlayers } from "@/app/slice/userSlice";
 import { updateWorkItems } from "../slice/workItemsSlice";
+import { motion } from "framer-motion";
 
 type JoinSimulationBtnType = {
   userData: {
@@ -100,12 +101,13 @@ const JoinSimulationBtn = ({ userData }: JoinSimulationBtnType) => {
   };
 
   return (
-    <button
+    <motion.button
+      whileHover={{ backgroundColor: "#00A8BA" }}
       onClick={handleJoinSimulation}
-      className="bg-orang text-black font-bold p-4 px-10"
+      className="bg-orang text-black font-bold p-4 px-10 rounded-lg"
     >
       Join
-    </button>
+    </motion.button>
   );
 };
 

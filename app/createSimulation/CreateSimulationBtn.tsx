@@ -6,8 +6,8 @@ import { updateRound, updateUser } from "@/app/slice/userSlice";
 import { updateActiveDat } from "@/app/slice/userSlice";
 import { User } from "../joinSimulation/JoinSimulationBtn";
 import { updatePlayers } from "@/app/slice/userSlice";
-import { LegacyRef, RefObject } from "react";
 import { updateWorkItems } from "../slice/workItemsSlice";
+import { motion } from "framer-motion";
 
 type CreateSimulationBtnType = {
   simulationData: {
@@ -74,12 +74,13 @@ const CreateSimulationBtn = ({ simulationData }: CreateSimulationBtnType) => {
   };
 
   return (
-    <button
+    <motion.button
+      whileHover={{ backgroundColor: "#00A8BA" }}
       onClick={handleCreateSimulation}
-      className="bg-orang text-black font-bold p-4 px-10 mt-4"
+      className="bg-orang text-black font-bold p-4 px-10 rounded-lg"
     >
       Create
-    </button>
+    </motion.button>
   );
 };
 
