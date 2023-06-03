@@ -36,27 +36,25 @@ const Header = ({
   const gameKey = useSelector((state: UserSelector) => state.user.gameKey);
 
   return (
-    <>
-      <header className="flex flex-row bg-white z-20 justify-between h-[10vh] items-center px-16 fixed top-0 left-0 w-screen">
-        <div className="font-bold flex justify-center items-center gap-2">
-          Room code: <span className="text-orang">{gameKey}</span>
+    <header className="flex flex-row bg-white z-20 justify-between h-[10vh] items-center px-16 fixed top-0 left-0 w-screen">
+      <div className="font-bold flex justify-center items-center gap-2">
+        Room code: <span className="text-orang">{gameKey}</span>
+      </div>
+      <section className="flex flex-row gap-14">
+        <LeadTime />
+        <Rounds />
+        <DaysCounter />
+        <div className="font-bold flex flex-row justify-center items-center gap-4">
+          <h1>Your color:</h1>
+          <div
+            style={{ backgroundColor: color }}
+            className="w-[20px] h-[20px] rounded-full bg-slate-950"
+          ></div>
         </div>
-        <section className="flex flex-row gap-14">
-          <LeadTime />
-          <Rounds />
-          <DaysCounter />
-          <div className="font-bold flex flex-row justify-center items-center gap-4">
-            <h1>Your color:</h1>
-            <div
-              style={{ backgroundColor: color }}
-              className="w-[20px] h-[20px] rounded-full bg-slate-950"
-            ></div>
-          </div>
-          <PlayersCount />
-          <MenuBtn setIsMenuVisible={setIsMenuVisible} />
-        </section>
-      </header>
-    </>
+        <PlayersCount />
+        <MenuBtn setIsMenuVisible={setIsMenuVisible} />
+      </section>
+    </header>
   );
 };
 

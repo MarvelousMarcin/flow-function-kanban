@@ -53,10 +53,7 @@ const Board = ({ name, items, user, speed }: BoardType) => {
 
   const handleDrawCard = async () => {
     const whatCard = await axios.post(
-      `${process.env.NEXT_PUBLIC_URL}/drawCard`,
-      {
-        data: { userId: "DQREYO" },
-      }
+      `${process.env.NEXT_PUBLIC_URL}/drawCard`
     );
 
     const card = whatCard.data.card;
