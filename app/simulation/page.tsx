@@ -89,7 +89,10 @@ export default function Simulation() {
     <main>
       <Header setIsMenuVisible={setIsMenuVisible} />
       <QueryClientProvider client={queryClient}>
-        {isMenuVisible && <Menu setIsMenuVisible={setIsMenuVisible} />}
+        <Menu
+          isMenuVisible={isMenuVisible}
+          setIsMenuVisible={setIsMenuVisible}
+        />
         <AllBoards />
         <Toaster />
       </QueryClientProvider>

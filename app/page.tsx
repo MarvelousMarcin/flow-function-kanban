@@ -7,7 +7,7 @@ export default function Home() {
       <section className="text-center">
         <p className="text-orang font-bold text-xl">try kanban in action</p>
         <h1 className="text-[#42486A] text-[3.7em] font-bold leading-[56px]">
-          Flow Fuction <br></br>Simulator
+          Flow Function <br></br>Simulator
         </h1>
       </section>
 
