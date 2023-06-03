@@ -38,7 +38,11 @@ const WorkItem = ({
   tableName,
 }: WorkItemType) => {
   const userId = useSelector((state: UserSelector) => state.user.id);
-  const userTable = useSelector((state: UserSelector) => state.user.table);
+  const userTable = useSelector((state: UserSelector) => state.user.table) as
+    | "Development"
+    | "Design"
+    | "Release"
+    | "Strategic Value";
   const userMove = useSelector((state: UserSelector) => state.user.move);
   const round = useSelector((state: UserSelector) => state.user.round);
   const dispatch = useDispatch();
@@ -50,7 +54,7 @@ const WorkItem = ({
 
     // Check users' done column
 
-    const count = workItemsAll.workItems[tableName]?.filter(
+    const count = workItemsAll.workItems[userTable]?.filter(
       (item) => item.stage === 4
     ).length as number;
 
