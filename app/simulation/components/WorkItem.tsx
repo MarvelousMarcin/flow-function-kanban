@@ -73,7 +73,8 @@ const WorkItem = ({
       (userMove.isMove &&
         userMove.card === "red" &&
         column.stage !== 4 &&
-        howManyWIP >= 3)
+        howManyWIP >= 3 &&
+        round >= 2)
     ) {
       if (owner && round === 1 && userId !== owner.id) {
         toast.dismiss();
