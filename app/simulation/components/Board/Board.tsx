@@ -84,8 +84,8 @@ const Board = ({ name, items, user, speed }: BoardType) => {
           <motion.button
             whileHover={{ scale: 1.05 }}
             onClick={handleDrawCard}
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
             className="absolute right-3 bg-orang font-bold p-3 rounded-lg"
           >
             Draw Card
@@ -93,8 +93,8 @@ const Board = ({ name, items, user, speed }: BoardType) => {
         )}
         {isMyBoard && userMove.isMove && userMove.card === "red" && (
           <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
             className="font-bold absolute right-0 p-3 rounded-lg bg-red-600 text-white w-32 text-center text-whit"
           >
             Block Item
@@ -102,8 +102,8 @@ const Board = ({ name, items, user, speed }: BoardType) => {
         )}
         {isMyBoard && userMove.isMove && userMove.card === "green" && (
           <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
             className="absolute right-0  font-bold p-3 rounded-lg bg-green-600 text-white w-44 text-center"
           >
             Move item
@@ -111,8 +111,8 @@ const Board = ({ name, items, user, speed }: BoardType) => {
         )}
         {isMyBoard && userMove.isMove && userMove.card === "waiting" && (
           <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
             className="absolute right-0  font-bold p-3  text-main w-44 text-center"
           >
             Waiting for others
