@@ -48,11 +48,19 @@ const WorkItem = ({
     const howManyWIP = myTableWI?.filter((wi) => wi.stage > 1 && wi.stage < 4)
       .length as number;
 
-    // if (userMove.isMove && userTable !== tableName) {
-    //   toast.dismiss();
-    //   toast.error("You can't touch other tables!");
-    //   return;
-    // }
+    // Check users' done column
+
+    const count = workItemsAll.workItems[tableName]?.filter(
+      (item) => item.stage === 4
+    ).length as number;
+
+    if (!(round >= 4 && count >= 3)) {
+      if (userMove.isMove && userTable !== tableName) {
+        toast.dismiss();
+        toast.error("You can't touch other tables!");
+        return;
+      }
+    }
 
     if (
       stage &&
