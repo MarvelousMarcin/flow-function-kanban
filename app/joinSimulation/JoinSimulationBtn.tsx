@@ -123,7 +123,7 @@ const JoinSimulationBtn = ({
       if (axios.isAxiosError(error)) {
         if (error.response?.status === 401) {
           toast.dismiss();
-          toast.error("No game with such key");
+          toast.error(error.response?.data.msg);
           setLoaderWidth("0");
         }
       }
